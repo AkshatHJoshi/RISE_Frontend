@@ -1,0 +1,21 @@
+.card {
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  padding: 40px;
+  position: absolute;
+  border: none;
+  background-color: #f3d9d9;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  box-shadow: rgb(0, 0, 3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.L_account {
+  margin: 20px;
+}

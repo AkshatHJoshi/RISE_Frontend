@@ -1,0 +1,75 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+          <div class="logo-wrapper">
+            <img src="./../../../assets/logo.svg" alt="Rishabh Software" />
+            <span id="text" class="Meal">Meal Facility</span>
+          </div>
+          <h1>Reset</h1>
+        </div>
+        <form>
+          <form [formGroup]="resestPasswordForm">
+            <div class="mb-3">
+              <label for="exampleInputName" class="form-label">Password</label>
+              <input
+                formControlName="password"
+                type="password"
+                class="form-control"
+                id="exampleInputName"
+              />
+              <small
+                *ngIf="
+                  resestPasswordForm.controls['password'].dirty &&
+                  resestPasswordForm.hasError('required', 'password')
+                "
+                class="text-danger"
+                >*New password is Required</small
+              >
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputLName" class="form-label"
+                >confirmPassword</label
+              >
+              <input
+                formControlName="confirmPassword"
+                type="password"
+                class="form-control"
+                id="exampleInputInputLName"
+              />
+              <small
+                *ngIf="
+                  resestPasswordForm.controls['confirmPassword'].dirty &&
+                  resestPasswordForm.hasError('required', 'confirmPassword')
+                "
+                class="text-danger"
+                >*confirmPassword is Required</small
+              >
+              <small
+                *ngIf="
+                  resestPasswordForm.hasError(
+                    'confirmPasswordValidator',
+                    'confirmPassword'
+                  )
+                "
+                class="text-danger"
+                >*Password doesn't match</small
+              >
+            </div>
+
+            <button
+              (click)="reset()"
+              type="submit"
+              class="btn btn-primary"
+              routerLink="/reset"
+            >
+              Reset
+            </button>
+          </form>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-sm-3 col-6">
+        <div class="logo">
+          <img
+            src="../../../../assets/logo-white.svg"
+            class="logo"
+            alt="Rishab Software"
+          />
+          <span>Meal Facility</span>
+        </div>
+      </div>
+      <div class="col-md-9 col-sm-9 col-6 text-end">
+        <div class="menu-icon" (click)="openMenu()">
+          <i class="{{ menu_icon }}"></i>
+        </div>
+        <div class="desktop_menu" [class.mobile_menu]="menuValue">
+          <ul>
+            <li (click)="closeMenu()" routerLink="/home">Home</li>
+            <li (click)="closeMenu()" routerLink="/aboutus">About</li>
+            <li (click)="closeMenu()" routerLink="/policy">Policy</li>
+            <li (click)="closeMenu()" routerLink="/terms">Terms</li>
+            <li (click)="logout()" routerLink="/login">Logout</li>
+
+            <li>Hii, {{ fullName }}</li>
+            <li>
+              <a
+                routerLink="/terms-and-condition"
+                aria-label="Notification"
+                class="list-items"
+                ><i class="fa-sharp fa-regular fa-bell"></i
+              ></a>
+            </li>
+            <li>
+              <a
+                class="list-items"
+                data-toggle="modal"
+                data-target="#sidemenu"
+                aria-label="side menu"
+                ><i class="fa fa-bars" aria-hidden="true"></i
+              ></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
