@@ -10,7 +10,7 @@
 
 #top {
   background-color: rgb(183, 183, 249);
-  background-image: url("./../../../assets/pol.png"),
+  background-image: url("./../../assets/pol.png"),
     linear-gradient(180deg, #1a3f98 0%, #092056 100%) !important;
   top: 0px;
   width: 100%;

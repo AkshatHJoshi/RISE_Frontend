@@ -14,15 +14,21 @@
       </button>
       <mat-card class="demo-inline-calendar-card">
         <mat-calendar
-          class="calander"
-          [(selected)]="selectedDate"
-          [dateFilter]="preventSelection"
-          (selectedChange)="onDateSelected($event)"
-        ></mat-calendar>
+  class="calander"
+  [(selected)]="selectedDate"
+  [dateFilter]="dateFilter"
+  (selectedChange)="onDateSelected($event)"
+></mat-calendar>
+
       </mat-card>
     </div>
     <div class="home-right">
-      <div>hello</div>
+      <div>
+        menu
+      </div>
+      <div>
+        <button  class="btn btn-danger Cancel">Cancel Meal</button>
+      </div>
     </div>
   </div>
   <div class="book-div">
@@ -31,3 +37,4 @@
     </button>
   </div>
 </div>
+<app-footer></app-footer>

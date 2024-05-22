@@ -1,40 +1,77 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from 'src/app/Services/api.service';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-
 import { BookingComponent } from '../booking/booking.component';
-import { FormControl, FormGroup } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
+import { BookingService } from '../Services/booking.service';
 
-
-const today = new Date();
-const month = today.getMonth();
-const year = today.getFullYear();
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent {
-  selectedDate: any;
-  selectedTime: any;
-  bookedDates: any[] = [];
-  canceledDates: any[] = [];
-  date: any;
-  public users: any = [];
-  dateFilter: any;
-  cell!: Date;
+export class HomeComponent implements OnInit {
+  selectedDate: Date | null = null;
+  selectedTime: string | null = null;
+  bookedDates: Date[] = [];
+  canceledDates: Date[] = [];
+  dateFilter!: (date: Date | null) => boolean;
+  allowbooking!: number;
+
+  constructor(
+    private api: ApiService,
+    private auth: AuthService,
+    public dialog: MatDialog,
+    private bookingservice: BookingService
+  ) {
+    this.fillDates();
+  }
+
+  ngOnInit() {
+    this.bookingservice.getAllowbooking().subscribe((res) => {
+      this.allowbooking = res;
+      console.log(this.allowbooking); // gives all users data
+    });
+
+    this.fetchAllowBookingAndSetDateFilter();
+  }
+
+  fetchAllowBookingAndSetDateFilter() {
+    this.bookingservice.getAllowbooking().subscribe({
+      next: (res) => {
+        this.allowbooking = res.allowedBookings;
+        console.log(this.allowbooking); // Output the allowed days
+        this.setDateFilter();
+      },
+      error: (error) => {
+        console.error('Error fetching allowed booking:', error);
+      }
+    });
+  }
+
+  setDateFilter() {
+    this.dateFilter = (date: Date | null): boolean => {
+      if (!date) {
+        return false;
+      }
+
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Reset time to compare only dates
+
+      if (this.allowbooking === undefined) {
+        console.error("allowbooking is undefined");
+        return false;
+      }
+
+      const maxDate = this.calculateMaxDate(today, this.allowbooking);//////////
+      maxDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
+
+      return date >= today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
+    };
+  }
 
   fillDates() {
-    this.bookedDates = [
-      new Date('2024-05-10'),
-      new Date('2024-05-15'),
-      new Date('2024-05-20'),
-      new Date('2024-05-25'),
-      new Date('2024-05-30'),
-    ];
 
     this.canceledDates = [
       new Date('2024-06-02'),
@@ -45,72 +82,43 @@ export class HomeComponent {
     ];
   }
 
-  isWeekend(date: any): boolean {
-    if (!date || !(date instanceof Date)) {
-      return false;
-    }
+  isWeekend(date: Date): boolean {
     const day = date.getDay();
     return day === 6 || day === 0;
   }
 
-  preventSelection = (date: any): boolean => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to compare only dates
-    return !this.isWeekend(date) && !this.isCanceled(date) && date >= today;
-  };
-
-  isCanceled(date: any): boolean {
-    if (!date || !(date instanceof Date)) {
-      return false;
-    }
-    return this.canceledDates.some((cancelDate) =>
-      this.isSameDate(date, cancelDate)
-    );
+  isCanceled(date: Date): boolean {
+    return this.canceledDates.some((cancelDate) => this.isSameDate(date, cancelDate));
   }
 
-  todayDate: Date = new Date();
-
-  isCurrentDate(cellDate: Date): boolean {
-    return cellDate.toDateString() === this.todayDate.toDateString();
+  isSameDate(date1: Date, date2: Date): boolean {
+    return date1.getFullYear() === date2.getFullYear() &&
+           date1.getMonth() === date2.getMonth() &&
+           date1.getDate() === date2.getDate();
   }
 
-  isSameDate(date1: any, date2: any): boolean {
-    if (
-      !date1 ||
-      !date2 ||
-      !(date1 instanceof Date) ||
-      !(date2 instanceof Date)
-    ) {
-      return false;
+  calculateMaxDate(startDate: Date, workingDays: number): Date {
+    let currentDate = new Date(startDate);
+    let addedDays = 0;
+
+    while (addedDays < workingDays) {
+      currentDate.setDate(currentDate.getDate() + 1);
+      if (currentDate.getDay() !== 6 && currentDate.getDay() !== 0 && !this.isCanceled(currentDate))
+         {
+        addedDays++;
+         }
     }
 
-    return (
-      date1.getFullYear() === date2.getFullYear() &&
-      date1.getMonth() === date2.getMonth() &&
-      date1.getDate() === date2.getDate()
-    );
+    return currentDate;
   }
 
-  constructor(
-    private api: ApiService,
-    private auth: AuthService,
-    public dialog: MatDialog
-  ) {
-    this.fillDates();
-  }
+  onDateSelected(event: Date | null) {
+    if (event === null) return;
 
-  onDateSelected(event: MatDatepickerInputEvent<Date>) {
-    const selectedDate = event.value;
+    const selectedDate = event;
     const currentDate = new Date();
 
-    // Check if the selected date is today
-    if (
-      selectedDate &&
-      selectedDate.toDateString() === currentDate.toDateString()
-    ) {
-      // this.dialog.open(QrCouponComponent);
-
-      // Update the selected time
+    if (selectedDate.toDateString() === currentDate.toDateString()) {
       const hours = currentDate.getHours().toString().padStart(2, '0');
       const minutes = currentDate.getMinutes().toString().padStart(2, '0');
       const seconds = currentDate.getSeconds().toString().padStart(2, '0');
@@ -126,15 +134,10 @@ export class HomeComponent {
     this.dialog.open(BookingComponent);
   }
 
-  ngOnInit() {
-    this.api.getUsers().subscribe((res) => {
-      this.users = res;
-    });
-  }
-
   logout() {
     this.auth.signOut();
   }
+
   signgout() {
     this.auth.signOut();
   }

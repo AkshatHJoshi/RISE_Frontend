@@ -10,6 +10,7 @@ export class BookingService {
   private baseUrl: string = 'https://localhost:7205/api/Booking/';
   constructor(private http: HttpClient, private router: Router) {}
 
+
   addBooking(bookingObj: any) {
     const email = localStorage.getItem('email');
     console.log(email);
@@ -25,5 +26,14 @@ export class BookingService {
 
     console.log(bookingEmailObj);
     return this.http.post<any>(`${this.baseUrl}CreateBooking`, bookingEmailObj);
+  }
+
+  getAllowbooking() {
+    const email = localStorage.getItem('email');
+    const allowbookingObj = {
+      Email: email
+    } 
+    
+    return this.http.post<any>(`${this.baseUrl}Allowedbookings`,allowbookingObj);
   }
 }
