@@ -59,6 +59,8 @@ export class HomeComponent implements OnInit {
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
+      
+
       if (this.allowbooking === undefined) {
         console.error("allowbooking is undefined");
         return false;
@@ -67,18 +69,24 @@ export class HomeComponent implements OnInit {
       const maxDate = this.calculateMaxDate(today, this.allowbooking);//////////
       maxDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
-      return date >= today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
+      return date > today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
     };
   }
 
   fillDates() {
 
     this.canceledDates = [
-      new Date('2024-06-02'),
-      new Date('2024-06-07'),
-      new Date('2024-06-12'),
-      new Date('2024-06-17'),
-      new Date('2024-06-22'),
+
+      //  Holiday of 2024
+      
+      new Date('2024-01-16'),    //Vassi Uttarayan (Next day to Makar Sankranti) -Monday
+      new Date('2024-01-26'),     //Republic Day -Friday
+      new Date('2024-03-08'),     //Maha Shivratri -Friday
+      new Date('2024-03-25'),     //Holi 2nd Day - Dhuleti -Monday
+      new Date('2024-08-15'),      //Independence Day -Thursday
+      new Date('2024-08-19'),      //Raksha Bandan -Monday
+      new Date('2024-10-31'),       //Diwali (Dipawali) -Thursday
+
     ];
   }
 
