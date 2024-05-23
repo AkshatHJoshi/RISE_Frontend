@@ -4,14 +4,42 @@
 </mat-card> -->
 <app-header></app-header>
 <div class="home-page">
+  <div class="book-div">
+    <button
+      (click)="openViewBookingDialog()"
+      class="btn btn-danger book-a-meal"
+    >
+      View Booking
+    </button>
+
+    <button
+      *ngIf="showCancelButton"
+      (click)="openCancelBookingDialog()"
+      class="btn btn-danger book-a-meal"
+    >
+      Cancel Booking
+    </button>
+  </div>
+  <div class="quickbook">
+    <!-- <button
+      (click)="openQuickBookingDialog()"
+      class="btn btn-danger book-a-meal"
+    >
+      Quick Booking
+    </button> -->
+    <button (click)="openAddBookingDialog()" class="btn btn-danger book-a-meal">
+      Book a Meal
+    </button>
+  </div>
   <div class="home-content">
+
     <div class="home-left">
-      <button
+      <!-- <button
         (click)="openViewBookingDialog()"
         class="btn btn-danger view-booking"
       >
         View Booking
-      </button>
+      </button> -->
       <mat-card class="demo-inline-calendar-card">
         <mat-calendar
   class="calander"
@@ -27,7 +55,7 @@
         menu
       </div>
       <div>
-        <button  class="btn btn-danger Cancel">Cancel Meal</button>
+        <button (click)="cancelBooking()" class="btn btn-danger Cancel">Cancel Meal</button>
       </div>
     </div>
   </div>

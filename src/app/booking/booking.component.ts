@@ -83,9 +83,16 @@ export class BookingComponent implements OnInit {
   }
 
   dateRangeValidator(control: FormGroup): { [key: string]: boolean } | null {
-    const startDate : Date = control.get('startDate')?.value;
+    const startDate : Date = control.get('startDate')?.value
+      const nextStartDay = new Date(startDate);
+      nextStartDay.setDate(startDate.getDate() + 1);
+                                                      // add 1 day because it takes lnday previous
+  
     const endDate : Date = control.get('endDate')?.value;
-    if (startDate && endDate && startDate >= endDate) {
+      const nextEndday = new Date(endDate);
+      nextEndday.setDate(endDate.getDate() + 1);
+    
+    if (nextStartDay && nextEndday && nextStartDay >= nextEndday) {
       return { invalidRange: true };
     }
     return null;

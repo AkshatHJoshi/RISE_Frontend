@@ -27,6 +27,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ViewBookingComponent } from './view-booking/view-booking.component';
+import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
 
 // -----------------------------------------------------
 
@@ -38,6 +39,7 @@ import { ViewBookingComponent } from './view-booking/view-booking.component';
     CalendarComponent,
     BookingComponent,
     ViewBookingComponent,
+    CancelBookingComponent,
   ],
   imports: [
     //-------

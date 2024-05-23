@@ -36,4 +36,25 @@ export class BookingService {
     
     return this.http.post<any>(`${this.baseUrl}Allowedbookings`,allowbookingObj);
   }
+
+  doCancelBooking(selectedDate :any)
+  {
+    const email = localStorage.getItem('email');
+   // console.log(selectedDate)              // till here comes selected day 
+   let nextDay = new Date(selectedDate);
+   nextDay.setDate(selectedDate.getDate() + 1);  // adding one day because it was canceling previous day then selected day
+    const cancelBookingObj = {
+     
+      email: email,
+      selecteddate: nextDay.toISOString().split("T")[0]
+      
+
+    } 
+    
+    console.log(cancelBookingObj)
+    return this.http.put<any>(`${this.baseUrl}CancelBooking`,cancelBookingObj);
+
+  }
+
+
 }

@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BookingComponent } from '../booking/booking.component';
 import { BookingService } from '../Services/booking.service';
+import { CancelBookingComponent } from '../cancel-booking/cancel-booking.component';
+import { NgToastComponent, NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-home',
@@ -18,10 +20,12 @@ export class HomeComponent implements OnInit {
   canceledDates: Date[] = [];
   dateFilter!: (date: Date | null) => boolean;
   allowbooking!: number;
+showCancelButton: boolean = false;
 
   constructor(
     private api: ApiService,
     private auth: AuthService,
+    private toast: NgToastService,
     public dialog: MatDialog,
     private bookingservice: BookingService
   ) {
@@ -121,9 +125,11 @@ export class HomeComponent implements OnInit {
   }
 
   onDateSelected(event: Date | null) {
+    
     if (event === null) return;
 
     const selectedDate = event;
+   // console.log(selectedDate);
     const currentDate = new Date();
 
     if (selectedDate.toDateString() === currentDate.toDateString()) {
@@ -134,10 +140,41 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  cancelBooking(): void {
+   // console.log(this.selectedDate);
+      this.bookingservice.doCancelBooking(this.selectedDate).subscribe({
+        next: (res) => {
+          this.toast.success({
+            detail: 'Meal Canceled',
+            summary: res.message,
+            duration: 3000,
+          });
+        },
+        error: (err) => {
+          this.toast.error({
+            detail: 'Meal Not Canceled',
+            summary: err.message,
+            duration: 3000,
+          });
+        },
+      });
+  }
+  
+
+
   openAddBookingDialog() {
     this.dialog.open(BookingComponent);
   }
 
+  // openQuickBookingDialog() {
+  //   this.dialog.open();
+  // }
+
+  
+  openCancelBookingDialog() {
+    this.dialog.open(CancelBookingComponent);
+  }
+  
   openViewBookingDialog() {
     this.dialog.open(BookingComponent);
   }
