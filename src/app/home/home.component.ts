@@ -7,6 +7,7 @@ import { BookingComponent } from '../booking/booking.component';
 import { BookingService } from '../Services/booking.service';
 import { CancelBookingComponent } from '../cancel-booking/cancel-booking.component';
 import { NgToastComponent, NgToastService } from 'ng-angular-popup';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -19,8 +20,9 @@ export class HomeComponent implements OnInit {
   bookedDates: Date[] = [];
   canceledDates: Date[] = [];
   dateFilter!: (date: Date | null) => boolean;
-  allowbooking!: number;
-showCancelButton: boolean = false;
+  allowaccess!: number;
+  credit!: number;
+  showCancelButton: boolean = false;
 
   constructor(
     private api: ApiService,
@@ -33,44 +35,40 @@ showCancelButton: boolean = false;
   }
 
   ngOnInit() {
-    this.bookingservice.getAllowbooking().subscribe((res) => {
-      this.allowbooking = res;
-      console.log(this.allowbooking); // gives all users data
-    });
-
-    this.fetchAllowBookingAndSetDateFilter();
-  }
-
-  fetchAllowBookingAndSetDateFilter() {
-    this.bookingservice.getAllowbooking().subscribe({
+    forkJoin({
+      allowAccess: this.bookingservice.getAllowaccess(),
+      credits: this.bookingservice.getCredits()
+    }).subscribe({
       next: (res) => {
-        this.allowbooking = res.allowedBookings;
-        console.log(this.allowbooking); // Output the allowed days
+        this.allowaccess = res.allowAccess.allowAccess;
+        this.credit = res.credits.credit;
+        console.log('Allow Access:', this.allowaccess); // Output the allowed access
+        console.log('Credits:', this.credit); // Output the allowed days
         this.setDateFilter();
       },
       error: (error) => {
-        console.error('Error fetching allowed booking:', error);
+        console.error('Error fetching data:', error);
       }
     });
   }
 
   setDateFilter() {
+    
     this.dateFilter = (date: Date | null): boolean => {
       if (!date) {
         return false;
       }
 
+      console.log('Allow Access:', this.allowaccess);
       const today = new Date();
       today.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
-      
-
-      if (this.allowbooking === undefined) {
-        console.error("allowbooking is undefined");
+      if (this.allowaccess === undefined) {
+        console.error('allowaccess is undefined');
         return false;
       }
 
-      const maxDate = this.calculateMaxDate(today, this.allowbooking);//////////
+      const maxDate = this.calculateMaxDate(today, this.allowaccess);
       maxDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
       return date > today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
@@ -78,19 +76,14 @@ showCancelButton: boolean = false;
   }
 
   fillDates() {
-
     this.canceledDates = [
-
-      //  Holiday of 2024
-      
-      new Date('2024-01-16'),    //Vassi Uttarayan (Next day to Makar Sankranti) -Monday
-      new Date('2024-01-26'),     //Republic Day -Friday
-      new Date('2024-03-08'),     //Maha Shivratri -Friday
-      new Date('2024-03-25'),     //Holi 2nd Day - Dhuleti -Monday
-      new Date('2024-08-15'),      //Independence Day -Thursday
-      new Date('2024-08-19'),      //Raksha Bandan -Monday
-      new Date('2024-10-31'),       //Diwali (Dipawali) -Thursday
-
+      new Date('2024-01-16'), // Vassi Uttarayan (Next day to Makar Sankranti) - Monday
+      new Date('2024-01-26'), // Republic Day - Friday
+      new Date('2024-03-08'), // Maha Shivratri - Friday
+      new Date('2024-03-25'), // Holi 2nd Day - Dhuleti - Monday
+      new Date('2024-08-15'), // Independence Day - Thursday
+      new Date('2024-08-19'), // Raksha Bandan - Monday
+      new Date('2024-10-31'), // Diwali (Dipawali) - Thursday
     ];
   }
 
@@ -104,9 +97,11 @@ showCancelButton: boolean = false;
   }
 
   isSameDate(date1: Date, date2: Date): boolean {
-    return date1.getFullYear() === date2.getFullYear() &&
-           date1.getMonth() === date2.getMonth() &&
-           date1.getDate() === date2.getDate();
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
   }
 
   calculateMaxDate(startDate: Date, workingDays: number): Date {
@@ -115,21 +110,21 @@ showCancelButton: boolean = false;
 
     while (addedDays < workingDays) {
       currentDate.setDate(currentDate.getDate() + 1);
-      if (currentDate.getDay() !== 6 && currentDate.getDay() !== 0 && !this.isCanceled(currentDate))
-         {
+      if (currentDate.getDay() !== 6 && currentDate.getDay() !== 0 && !this.isCanceled(currentDate)) {
         addedDays++;
-         }
+      }
     }
 
     return currentDate;
   }
 
   onDateSelected(event: Date | null) {
-    
     if (event === null) return;
 
     const selectedDate = event;
-   // console.log(selectedDate);
+    const dayName = this.getDayName(selectedDate);
+    this.currentMenu = this.dayMenus[dayName] || { lunch: [], dinner: [] };
+
     const currentDate = new Date();
 
     if (selectedDate.toDateString() === currentDate.toDateString()) {
@@ -141,40 +136,67 @@ showCancelButton: boolean = false;
   }
 
   cancelBooking(): void {
-   // console.log(this.selectedDate);
-      this.bookingservice.doCancelBooking(this.selectedDate).subscribe({
-        next: (res) => {
-          this.toast.success({
-            detail: 'Meal Canceled',
-            summary: res.message,
-            duration: 3000,
-          });
-        },
-        error: (err) => {
-          this.toast.error({
-            detail: 'Meal Not Canceled',
-            summary: err.message,
-            duration: 3000,
-          });
-        },
-      });
+    this.bookingservice.doCancelBooking(this.selectedDate).subscribe({
+      next: (res) => {
+        this.toast.success({
+          detail: 'Meal Canceled',
+          summary: res.message,
+          duration: 3000,
+        });
+      },
+      error: (err) => {
+        this.toast.error({
+          detail: 'Meal Not Canceled',
+          summary: err.message,
+          duration: 3000,
+        });
+      },
+    });
   }
-  
 
+  getDayName(date: Date): string {
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    return days[date.getDay()];
+  }
+
+  currentMenu: { lunch: string[]; dinner: string[] } = {
+    lunch: [],
+    dinner: [],
+  };
+
+  dayMenus: { [key: string]: { lunch: string[]; dinner: string[] } } = {
+    Sunday: { lunch: [], dinner: [] },
+    Monday: {
+      lunch: ['Matar Paneer', 'Jeera Rice', 'Chapati', 'Raita'],
+      dinner: ['Chole Bhature', 'Salad', 'Gulab Jamun'],
+    },
+    Tuesday: {
+      lunch: ['Rajma Chawal', 'Papad', 'Pickle', 'Dahi'],
+      dinner: ['Palak Paneer', 'Naan', 'Salad', 'Kheer'],
+    },
+    Wednesday: {
+      lunch: ['Baingan Bharta', 'Paratha', 'Salad', 'Buttermilk'],
+      dinner: ['Dum Aloo', 'Rice', 'Chapati', 'Halwa'],
+    },
+    Thursday: {
+      lunch: ['Paneer Butter Masala', 'Jeera Rice', 'Chapati', 'Raita'],
+      dinner: ['Vegetable Pulao', 'Raita', 'Papad', 'Rasgulla'],
+    },
+    Friday: {
+      lunch: ['Kadhi Pakora', 'Rice', 'Papad', 'Pickle'],
+      dinner: ['Aloo Gobi', 'Paratha', 'Salad', 'Ice Cream'],
+    },
+    Saturday: { lunch: [], dinner: [] },
+  };
 
   openAddBookingDialog() {
     this.dialog.open(BookingComponent);
   }
 
-  // openQuickBookingDialog() {
-  //   this.dialog.open();
-  // }
-
-  
   openCancelBookingDialog() {
     this.dialog.open(CancelBookingComponent);
   }
-  
+
   openViewBookingDialog() {
     this.dialog.open(BookingComponent);
   }

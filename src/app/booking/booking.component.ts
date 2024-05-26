@@ -61,6 +61,7 @@ export class BookingComponent implements OnInit {
     
 
     if (jwtToken) {
+      
       this.book.addBooking(this.addbookingForm.value).subscribe({
         next: (res) => {
           this.toast.success({

@@ -52,7 +52,32 @@
     </div>
     <div class="home-right">
       <div>
-        menu
+        <div class="home-right">
+          <div class="meal-header">
+            <h2>Meal of the day</h2>
+          </div>
+          <div class="today-meal-wrapper" *ngIf="selectedDate">
+            <div class="today-meal-block">
+              <div class="today-meal-col">
+                <div class="head">
+                  <h4>Lunch</h4>
+                </div>
+    
+                <ul class="today-meal">
+                  <li *ngFor="let item of currentMenu.lunch">{{ item }}</li>
+                </ul>
+              </div>
+              <div class="today-meal-col">
+                <div class="head">
+                  <h4>Dinner</h4>
+                </div>
+                <ul class="today-meal">
+                  <li *ngFor="let item of currentMenu.dinner">{{ item }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div>
         <button (click)="cancelBooking()" class="btn btn-danger Cancel">Cancel Meal</button>
