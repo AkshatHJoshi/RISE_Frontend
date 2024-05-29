@@ -118,7 +118,7 @@ export class BookingComponent implements OnInit {
          
           this.toast.error({
             detail: 'Meal Not Booked',
-            summary: err.message,
+            summary: err,
             duration: 3000,
           });
         },
