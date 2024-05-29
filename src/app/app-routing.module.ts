@@ -13,6 +13,7 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
 import { CalendarComponent } from './calendar/calendar.component';
 import { BookingComponent } from './booking/booking.component';
 import { DashboardComponent } from './Dashboard/dashboard.component';
+import { CouponComponent } from './coupon/coupon.component';
 
 const routes: Routes = [
   {
@@ -27,7 +28,9 @@ const routes: Routes = [
     ],
   },
   { path: '', component: LoginComponent },
+  { path: 'header', component:HeaderComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'coupon', component:CouponComponent },
   { path: 'booking', component: BookingComponent },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignupComponent },

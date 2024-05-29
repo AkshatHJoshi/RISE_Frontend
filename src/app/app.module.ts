@@ -22,12 +22,14 @@ import { FormsModule } from '@angular/forms'; // Required for ngModel
 
 import {  MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { NgxQrcodeStylingModule } from 'ngx-qrcode-styling'
 
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ViewBookingComponent } from './view-booking/view-booking.component';
 import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
+import { SharedModule } from './Shared/shared.module';
 
 // -----------------------------------------------------
 
@@ -60,7 +62,7 @@ import { CancelBookingComponent } from './cancel-booking/cancel-booking.componen
     BrowserAnimationsModule,
     MatDialogModule,
     MatRadioModule,
-    
+    SharedModule,NgxQrcodeStylingModule,
     
 
     MatRadioModule,

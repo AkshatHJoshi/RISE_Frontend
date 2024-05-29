@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="card-body">
+      <div class="text-center mb-4">
+        <h2>Scan me</h2>
+      </div>
+      <div *ngIf="showQRCode" class="qr-code-container">
+        <qrcode
+          [width]="200"
+          [qrdata]="qrdata"
+          [allowEmptyString]="true"
+        ></qrcode>
+      </div>
+      <p class="text-center">{{ name }}</p>
+    </div>
+  </div>

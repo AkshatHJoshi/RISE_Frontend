@@ -22,13 +22,13 @@ export class BookingService {
     enddate.setDate(bookingObj.admDateRange.endDate.getDate() + 1);
 
     const bookingEmailObj = {
-      StartDate: stratdate.toISOString().split("T")[0],
-      EndDate:enddate.toISOString().split("T")[0],
-      Type : bookingObj.BookingType,
-      Email: email
+      startDate: stratdate.toISOString().split("T")[0],
+      endDate:enddate.toISOString().split("T")[0],
+      type : bookingObj.BookingType,
+      email: email
     } 
 
-    console.log(bookingEmailObj);
+    console.log('bookingemailobj:',bookingEmailObj);
     return this.http.post<any>(`${this.baseUrl}CreateBooking`, bookingEmailObj);
   }
 
@@ -41,13 +41,16 @@ export class BookingService {
     return this.http.post<any>(`${this.baseUrl}Allowedaccess`,allowbookingObj);
   }
 
-  getCredits(){
+  getCredits(selectedDate :any){
     const email = localStorage.getItem('email');
+    let nextDay = new Date(selectedDate);
+   nextDay.setDate(selectedDate.getDate() + 1); 
     const CreditsObj = {
-      email: email
+      email: email,
+      selecteddate: nextDay.toISOString().split("T")[0]
     } 
     
-    return this.http.post<any>(`${this.baseUrl}Credits`,CreditsObj);
+    return this.http.post<any>(`${this.baseUrl}Credits_and_bookingstatus`,CreditsObj);
 
   }
 

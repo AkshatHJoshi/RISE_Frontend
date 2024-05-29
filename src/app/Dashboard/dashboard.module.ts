@@ -13,6 +13,10 @@ import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-c
 import { SharedModule } from '../Shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from '../home/home.component';
+import { CouponComponent } from '../coupon/coupon.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { QRCodeModule } from 'angularx-qrcode';
+
 
 @NgModule({
   declarations: [
@@ -24,13 +28,14 @@ import { HomeComponent } from '../home/home.component';
     AboutUsComponent,
     PrivacyPolicyComponent,
     TermsAndConditionsComponent,
-    HomeComponent
+    HomeComponent,
+    CouponComponent,
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,QRCodeModule,MatDatepickerModule
   ],
 })
 export class DashboardModule {}

@@ -13,9 +13,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Subscription, catchError, forkJoin } from 'rxjs';
 import { BookingService } from '../Services/booking.service';
 import { NgToastService } from 'ng-angular-popup';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const today = new Date();
 const month = today.getMonth();
@@ -29,16 +30,38 @@ const year = today.getFullYear();
 export class BookingComponent implements OnInit {
   addbookingForm!: FormGroup;
   isFormVisible = true;
+  Mindate = new Date();
+  Maxdate = new Date();
+  allowaccess: any;
  
 
   constructor(
     private fb: FormBuilder,
     private book: BookingService,
     public dialogRef: MatDialogRef<BookingComponent>,
-    private toast: NgToastService
-  ) {}
+    private toast: NgToastService,
+    private bookingservice: BookingService
+  ) {
+    
+  }
 
   ngOnInit(): void {
+    forkJoin({
+      allowAccess: this.bookingservice.getAllowaccess(),
+      
+    }).subscribe({
+      next: (res) => {
+        this.allowaccess = res.allowAccess.allowAccess;
+       
+        console.log('Allow Access:', this.allowaccess); // Output the allowed access
+        this.Maxdate= this.calculateMaxDate(this.Mindate, this.allowaccess)
+        console.log('maxdate:' ,this.Maxdate);  // 
+        console.log('mindate:',this.Mindate);
+      },
+      error: (error) => {
+        console.error('Error fetching data:', error);
+      }
+    });
     this.addbookingForm = this.fb.group({
       BookingType: ['', Validators.required],
       admDateRange: this.fb.group(
@@ -49,6 +72,21 @@ export class BookingComponent implements OnInit {
         { validators: this.dateRangeValidator }
       ),
     });
+  }
+
+  calculateMaxDate(startDate: Date, allowedDays: number): Date {
+    let date = new Date(startDate);
+    let daysAdded = 0;
+
+    while (daysAdded < allowedDays) {
+      date.setDate(date.getDate() + 1);
+      // Skip Saturday (6) and Sunday (0)
+      if (date.getDay() !== 0 && date.getDay() !== 6) {
+        daysAdded++;
+      }
+    }
+
+    return date;
   }
 
   closeForm() {
@@ -64,7 +102,9 @@ export class BookingComponent implements OnInit {
       
       this.book.addBooking(this.addbookingForm.value).subscribe({
         next: (res) => {
+          console.log('innext:',res);
           this.toast.success({
+
             detail: 'Meal Booked',
             summary: res.message,
             duration: 3000,
@@ -73,6 +113,9 @@ export class BookingComponent implements OnInit {
           this.closeForm();
         },
         error: (err) => {
+          console.log('error:',err);
+          console.log('error:', err?.message);
+         
           this.toast.error({
             detail: 'Meal Not Booked',
             summary: err.message,
@@ -80,7 +123,13 @@ export class BookingComponent implements OnInit {
           });
         },
       });
+      // this.book.addBooking(this.addbookingForm.value).pipe(
+      //   catchError((error: HttpErrorResponse) => {
+      //     console.log("error",error);
+      //   }) 
+      // )
     }
+
   }
 
   dateRangeValidator(control: FormGroup): { [key: string]: boolean } | null {

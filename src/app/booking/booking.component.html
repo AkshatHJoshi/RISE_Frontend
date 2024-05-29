@@ -1,4 +1,4 @@
-<h1>Akshat</h1>
+
 <div class="add-booking-container">
     <div class="add-booking-form" *ngIf="isFormVisible">
       <div class="add-booking-header">
@@ -17,24 +17,14 @@
   
         <div class="form-group">
           <label>Select Meal Days</label>
-          <!-- <mat-form-field class="example-form-field">
-                    <mat-date-range-input [formGroup]="campaignOne" [rangePicker]="campaignOnePicker"
-                        [comparisonStart]="campaignTwo.value.start" [comparisonEnd]="campaignTwo.value.end">
-                        <input matStartDate placeholder="Start date"
-                            formControlName="BookingStartDate" />
-                        <input matEndDate placeholder="End date"
-                            formControlName="BookingEndDate" />
-                    </mat-date-range-input>
-                    <mat-hint>MM/DD/YYYY - MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="campaignOnePicker"></mat-datepicker-toggle>
-                    <mat-date-range-picker #campaignOnePicker></mat-date-range-picker>
-                </mat-form-field> -->
   
           <mat-form-field>
             <mat-label>Select Meal Days</mat-label>
             <mat-date-range-input
               [rangePicker]="admDateRangePicker"
-              formGroupName="admDateRange"
+              [min]="Mindate"  
+              [max]="Maxdate"
+             formGroupName="admDateRange"
             >
               <input
                 matStartDate

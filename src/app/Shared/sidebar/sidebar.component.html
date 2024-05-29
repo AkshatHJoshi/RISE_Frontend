@@ -1,1 +1,57 @@
-<p>sidebar works!</p>
+<div class="sidebar-modal">
+    <ul class="social">
+      <li>
+        <a
+          routerLink="/aboutus"
+          class="list-items"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="onclick()"
+          >AboutUS</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/contact"
+          class="list-items"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="onclick()"
+          >Contact-Us</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/terms"
+          class="list-items"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="onclick()"
+          >Terms And Condition</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/policy"
+          class="list-items"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="onclick()"
+          >Privacy Policy</a
+        >
+      </li>
+      <li>
+        <a
+          routerLink="/Change"
+          class="list-items"
+          routerLinkActive="active"
+          ariaCurrentWhenActive="page"
+          (click)="onclick()"
+          >Change Password</a
+        >
+      </li>
+      <button (click)="openLogoutDialog()" class="btn btn-secondary btn-danger">
+        Logout
+      </button>
+    </ul>
+  </div>

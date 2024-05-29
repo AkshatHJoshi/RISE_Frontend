@@ -7,27 +7,36 @@ import { TermsAndConditionsComponent } from '../terms-and-conditions/terms-and-c
 import { authGuard } from '../guards/auth.guard';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { BookingComponent } from '../booking/booking.component';
-
+import { DashboardComponent } from './dashboard.component';
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'aboutus', component: AboutUsComponent, canActivate: [authGuard] },
   {
-    path: 'policy',
-    component: PrivacyPolicyComponent,
-    canActivate: [authGuard],
+    path: '',
+    component: DashboardComponent,
+    children: [
+      { path: 'home', component: HomeComponent },
+      {
+        path: 'aboutus',
+        component: AboutUsComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'policy',
+        component: PrivacyPolicyComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'terms',
+        component: TermsAndConditionsComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'calendar',
+        component: CalendarComponent,
+        canActivate: [authGuard],
+      },
+    ],
   },
-  {
-    path: 'terms',
-    component: TermsAndConditionsComponent,
-    canActivate: [authGuard],
-  },
-  { path: 'calander', component: CalendarComponent, canActivate: [authGuard] },
-  {
-    path: 'booking',
-    component:BookingComponent
-  }
 ];
-
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
