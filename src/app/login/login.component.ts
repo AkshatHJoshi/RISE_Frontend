@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       localStorage.setItem('email',this.loginForm.value.username)
       this.auth.login(this.loginForm.value).subscribe({
         next: (res) => {
-          alert(res.message);
+          //alert(res.message);
           this.loginForm.reset();
           this.auth.storeTokan(res.token);
           const tokenPayload = this.auth.decodeToken();

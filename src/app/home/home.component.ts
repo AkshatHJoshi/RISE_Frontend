@@ -9,6 +9,7 @@ import { CancelBookingComponent } from '../cancel-booking/cancel-booking.compone
 import { NgToastComponent, NgToastService } from 'ng-angular-popup';
 import { forkJoin } from 'rxjs';
 import { ViewBookingComponent } from '../view-booking/view-booking.component';
+import { QuickBookingComponent } from '../quick-booking/quick-booking.component';
 
 @Component({
   selector: 'app-home',
@@ -41,6 +42,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('in  ng on init: ',this.todays_booking)
     this.selectedDate = new Date();
     forkJoin({
       allowAccess: this.bookingservice.getAllowaccess(),
@@ -97,7 +99,7 @@ export class HomeComponent implements OnInit {
       const maxDate = this.calculateMaxDate(today, this.allowaccess);
       maxDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
 
-      return date >= today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
+      return date >= today && date < maxDate && !this.isWeekend(date) && !this.isCanceled(date);
     };
   }
 
@@ -233,6 +235,10 @@ export class HomeComponent implements OnInit {
 
   openViewBookingDialog() {
     this.dialog.open(ViewBookingComponent);
+  }
+
+  openQuickBookingDialog(){
+    this.dialog.open(QuickBookingComponent);
   }
 
   logout() {

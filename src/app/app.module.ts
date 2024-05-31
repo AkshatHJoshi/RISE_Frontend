@@ -31,6 +31,13 @@ import { ViewBookingComponent } from './view-booking/view-booking.component';
 import { CancelBookingComponent } from './cancel-booking/cancel-booking.component';
 import { SharedModule } from './Shared/shared.module';
 
+import { NotificationComponent } from './notification/notification.component';
+import { QuickBookingComponent } from './quick-booking/quick-booking.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { LogoutComponent } from './logout/logout.component';
+
 // -----------------------------------------------------
 
 
@@ -42,6 +49,11 @@ import { SharedModule } from './Shared/shared.module';
     BookingComponent,
     ViewBookingComponent,
     CancelBookingComponent,
+    NotificationComponent,
+    QuickBookingComponent,
+    ContactUsComponent,
+    ChangePasswordComponent,
+    LogoutComponent,
   ],
   imports: [
     //-------
@@ -62,7 +74,9 @@ import { SharedModule } from './Shared/shared.module';
     BrowserAnimationsModule,
     MatDialogModule,
     MatRadioModule,
-    SharedModule,NgxQrcodeStylingModule,
+    SharedModule,NgxQrcodeStylingModule,    
+    ReactiveFormsModule,
+    MatDividerModule,
     
 
     MatRadioModule,

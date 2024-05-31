@@ -29,13 +29,13 @@ import { QRCodeModule } from 'angularx-qrcode';
     PrivacyPolicyComponent,
     TermsAndConditionsComponent,
     HomeComponent,
-    CouponComponent,
+    CouponComponent
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     SharedModule,
-    ReactiveFormsModule,QRCodeModule,MatDatepickerModule
+    ReactiveFormsModule,QRCodeModule,MatDatepickerModule,
   ],
 })
 export class DashboardModule {}

@@ -15,6 +15,7 @@ describe('ViewBookingComponent', () => {
     fixture.detectChanges();
   });
 
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });

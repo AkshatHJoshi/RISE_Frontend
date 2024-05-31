@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/Services/auth.service';
+import { LogoutComponent } from 'src/app/logout/logout.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -15,7 +16,7 @@ export class SidebarComponent {
   ) {}
 
   openLogoutDialog() {
-    // this.dialog.open(LogoutComponent);
+    this.dialog.open(LogoutComponent);
     this.closeSidebar();
   }
 

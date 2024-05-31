@@ -1,49 +1,56 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
-  }
-  
-  .view-container {
-    width: 500px;
-    height: auto;
-    padding: 1rem;
-    border-radius: 10px;
-  }
-  
-  .view-form {
-    background: #fff;
-    padding: 1.5rem;
-    max-width: 500px;
-    margin: 0 auto;
-  }
-  
-  .view-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .view-header h1 {
-    font-weight: 700;
-    color: black;
-    margin: 0;
-  }
-  
-  .view-header button {
-    background-color: white;
-    border: none;
-    font-size: x-large;
-    cursor: pointer;
-  }
-  
-  .form-group {
-    margin: 2px;
-  }
-  
-  label {
-    display: block;
-    margin: 1rem 0;
-    color: black;
-    font-weight: 400;
-    font-size: 18px;
-  }
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+::ng-deep.special-date {
+  background-color: rgb(131, 222, 238);
+  border-radius: 100%;
+  padding: 5px;
+  color: white;
+}
+
+.view-container {
+  width: 500px;
+  height: auto;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+.view-form {
+  background: #fff;
+  padding: 1.5rem;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.view-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-header h1 {
+  font-weight: 700;
+  color: black;
+  margin: 0;
+}
+
+.view-header button {
+  background-color: white;
+  border: none;
+  font-size: x-large;
+  cursor: pointer;
+}
+
+.form-group {
+  margin: 2px;
+}
+
+label {
+  display: block;
+  margin: 1rem 0;
+  color: black;
+  font-weight: 400;
+  font-size: 18px;
+}

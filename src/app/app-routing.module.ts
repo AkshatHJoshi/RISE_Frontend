@@ -14,6 +14,9 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { BookingComponent } from './booking/booking.component';
 import { DashboardComponent } from './Dashboard/dashboard.component';
 import { CouponComponent } from './coupon/coupon.component';
+import { ViewBookingComponent } from './view-booking/view-booking.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 const routes: Routes = [
   {
@@ -28,14 +31,29 @@ const routes: Routes = [
     ],
   },
   { path: '', component: LoginComponent },
-  { path: 'header', component:HeaderComponent },
+  // { path: 'header', component:HeaderComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'coupon', component:CouponComponent },
-  { path: 'booking', component: BookingComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'signup', component: SignupComponent },
+  //{ path: 'coupon', component:CouponComponent },
+  //{ path: 'booking', component: BookingComponent,canActivate: [authGuard] },
+  { path: 'home', component: HomeComponent , canActivate: [authGuard]},
+ // { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgotpasswordComponent },
   { path: 'reset', component: ResetComponent, canActivate: [authGuard] },
+ // { path: 'view', component:ViewBookingComponent },
+  { path: 'contact', component:ContactUsComponent, canActivate: [authGuard] },
+  { path: 'aboutus', component: AboutUsComponent, canActivate: [authGuard] },
+  { path: 'policy',component: PrivacyPolicyComponent,canActivate: [authGuard], },
+
+     {
+    path: 'terms',
+    component: TermsAndConditionsComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'Change',
+    component: ChangePasswordComponent,
+    canActivate: [authGuard],
+  },
 ];
 
 @NgModule({

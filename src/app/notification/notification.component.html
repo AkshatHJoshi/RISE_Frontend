@@ -1,0 +1,20 @@
+<div class="notification-overlay" (click)="closeNotificationSidebar()"></div>
+<div class="notification-sidebar" [class.active]="isNotificationSidebarActive">
+  <!-- <div> -->
+    <div class="mat-dialog-actions">
+        <button mat-button (click)="deleteNotifications()">Clear All </button>
+        <button mat-button (click)="closeNotificationSidebar()">Close</button>
+      </div>
+  <div *ngFor="let notification of notification; let i = index" class="notification-item">
+    <div *ngIf="notification.length == 0" class="no-notifications">
+        No Notifications Yet!
+      </div>
+    <p>{{ notification }}</p>
+    <button mat-icon-button (click)="removeNotification(i)">
+      <mat-icon>cancel</mat-icon>
+    </button>
+    <mat-divider></mat-divider>
+  </div>
+  <!-- </div> -->
+ 
+</div>

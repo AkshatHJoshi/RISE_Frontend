@@ -1,0 +1,82 @@
+/* Sidebar styles */
+.notification-sidebar {
+    position: fixed;
+    top: 80px; /* Adjust as necessary */
+    right: 0; /* Adjusted to start from the right */
+    width: 300px;
+    height: calc(100% - 80px); /* Adjusted to fit within viewport */
+    background-color: rgb(16, 5, 100);
+    color: white;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto; /* Ensure scrollable content */
+    padding: 20px;
+  }
+  
+  .nonotification{
+    color: white;
+  }
+  .notification-sidebar.active {
+    right: 0;
+  }
+  
+  .notification-sidebar .notification-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+  }
+  
+  .notification-sidebar .notification-item p {
+    margin: 0;
+    flex: 1;
+  }
+  
+  .notification-sidebar .notification-item button {
+    margin-left: 10px;
+  }
+  
+  /* Divider styles */
+  .notification-sidebar .mat-divider {
+    margin: 10px 0;
+  }
+  
+  /* Action buttons styles */
+  .notification-sidebar .mat-dialog-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    bottom: 0;
+    background-color: rgb(255, 255, 255, 0.4);
+    border-radius: 20px;
+  }
+  
+  button {
+    border-radius: 20px;
+  }
+  
+  .notification-sidebar .mat-dialog-actions button {
+    margin: 0 5px;
+  }
+  
+  /* Overlay styles */
+  .notification-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+  
+  .notification-overlay.active {
+    display: block;
+  }
+  
+  p {
+    position: relative;
+    top: 10px;
+  }

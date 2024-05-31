@@ -11,10 +11,12 @@
   <span class="title">Meal Facility</span>
   <ul class="social">
     <span class="name">Hii, {{ fullName }}!</span>
-    <li (click)="openNotification()">
-      <a aria-label="Notification" class="list-items"
-        ><i class="fa-sharp fa-regular fa-bell"></i
-      ></a>
+    <li class="notification" (click)="openNotification()">
+      <a aria-label="Notification" class="list-items">
+        <i class="fa-sharp fa-regular fa-bell"></i>
+        <span *ngIf="NotificationCount > 0" class="notification-count">
+        {{NotificationCount}}</span>
+      </a>
     </li>
   </ul>
 </div>

@@ -30,8 +30,11 @@ const year = today.getFullYear();
 export class BookingComponent implements OnInit {
   addbookingForm!: FormGroup;
   isFormVisible = true;
-  Mindate = new Date();
+
+  
   Maxdate = new Date();
+  Mindate!: Date;
+   
   allowaccess: any;
  
 
@@ -46,15 +49,17 @@ export class BookingComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    forkJoin({
-      allowAccess: this.bookingservice.getAllowaccess(),
-      
-    }).subscribe({
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+    this.Mindate = tomorrow;   // because for today you are not allowed to book a meal
+    
+  
+     this.bookingservice.getAllowaccess().subscribe({
       next: (res) => {
-        this.allowaccess = res.allowAccess.allowAccess;
+        this.allowaccess = res.allowAccess;
        
         console.log('Allow Access:', this.allowaccess); // Output the allowed access
-        this.Maxdate= this.calculateMaxDate(this.Mindate, this.allowaccess)
+        this.Maxdate= this.calculateMaxDate(this.Mindate, this.allowaccess - 1)
         console.log('maxdate:' ,this.Maxdate);  // 
         console.log('mindate:',this.Mindate);
       },

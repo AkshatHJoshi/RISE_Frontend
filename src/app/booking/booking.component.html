@@ -10,8 +10,8 @@
         <div class="form-group">
           <label>Select Meal Type</label>
           <mat-radio-group formControlName="BookingType">
-            <mat-radio-button value="lunch">Lunch</mat-radio-button>
-            <mat-radio-button value="dinner">Dinner</mat-radio-button>
+            <mat-radio-button value="Lunch">Lunch</mat-radio-button>
+            <mat-radio-button value="Dinner">Dinner</mat-radio-button>
           </mat-radio-group>
         </div>
   
@@ -20,7 +20,7 @@
   
           <mat-form-field>
             <mat-label>Select Meal Days</mat-label>
-            <mat-date-range-input
+            <mat-date-range-input             
               [rangePicker]="admDateRangePicker"
               [min]="Mindate"  
               [max]="Maxdate"

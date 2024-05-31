@@ -48,7 +48,10 @@ export class CancelBookingComponent {
         });
       },
     });
+
+
     this.closeForm();
+
   }
   closeForm() {
     this.dialogRef.close();

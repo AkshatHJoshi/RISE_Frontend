@@ -54,4 +54,13 @@ export class AuthService {
   getRoleFromToken() {
     if (this.userPayload) return this.userPayload.role;
   }
+  changePassword(changePas: any) {
+    const Email = localStorage.getItem('email');
+    const changepasObj = {
+      email: Email,
+      oldPassword: changePas.oldPassword,
+      newPassword: changePas.newPassword,
+    };
+    return this.http.post<any>(`${this.baseUrl}changePassword`, changepasObj);
+  }
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MatCalendarCellCssClasses } from '@angular/material/datepicker';
 import { MatDialogRef } from '@angular/material/dialog';
+import { BookingService } from '../Services/booking.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-view-booking',
@@ -10,24 +12,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class ViewBookingComponent {
 
   selectedDate: any;
-
-  // Assuming start and end dates
-  startDate = new Date('2024-05-25T18:30:00.000Z');
-  endDate = new Date('2024-05-28T18:30:00.000Z');
-
-  datesToHighlight: string[] = this.generateDatesInRange(
-    this.startDate,
-    this.endDate
-  );
-
-  constructor(public dialogRef: MatDialogRef<ViewBookingComponent>) {}
-
-  ngOnInit() {}
-
-  onSelect(event: any) {
-    console.log(event);
-    this.selectedDate = event;
-  }
+  bookings: any[] = [];
 
   dateClass() {
     return (date: Date): MatCalendarCellCssClasses => {
@@ -35,7 +20,7 @@ export class ViewBookingComponent {
         return '';
       }
 
-      const highlightDate = this.datesToHighlight
+      const highlightDate = this.bookings
         .map((strDate) => new Date(strDate))
         .some(
           (d) =>
@@ -47,16 +32,33 @@ export class ViewBookingComponent {
       return highlightDate ? 'special-date' : '';
     };
   }
+  constructor(
+    private toast: NgToastService,
+    private bookingServioce: BookingService,
+    public dialogRef: MatDialogRef<ViewBookingComponent>
+  ) { }
 
-  // Function to generate dates between start and end date
-  generateDatesInRange(startDate: Date, endDate: Date): string[] {
-    const dates: string[] = [];
-    let currentDate = startDate;
-    while (currentDate <= endDate) {
-      dates.push(currentDate.toISOString());
-      currentDate = new Date(currentDate.getTime() + 24 * 60 * 60 * 1000); // Add one day
-    }
-    return dates;
+  ngOnInit() {
+    this.bookingServioce.getViewBooking().subscribe(
+      res => {
+        console.log('API Response:', res);
+        if (Array.isArray(res)) {
+          this.bookings = res;  // Assign only if the response is an array
+          this.dateClass();
+        } else {
+          console.error('Unexpected response format', res);
+        }
+      },
+      error => {
+        console.error('Error fetching bookings', error);
+      }
+    );
+
+  }
+
+  onSelect(event: any) {
+    console.log(event);
+    this.selectedDate = event;
   }
 
   closeForm() {

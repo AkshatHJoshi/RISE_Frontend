@@ -8,6 +8,7 @@ import { authGuard } from '../guards/auth.guard';
 import { CalendarComponent } from '../calendar/calendar.component';
 import { BookingComponent } from '../booking/booking.component';
 import { DashboardComponent } from './dashboard.component';
+import { ViewBookingComponent } from '../view-booking/view-booking.component';
 const routes: Routes = [
   {
     path: '',
@@ -32,6 +33,10 @@ const routes: Routes = [
       {
         path: 'calendar',
         component: CalendarComponent,
+        canActivate: [authGuard],
+      },
+      {
+         path: 'view', component:ViewBookingComponent,
         canActivate: [authGuard],
       },
     ],

@@ -32,6 +32,18 @@ export class BookingService {
     return this.http.post<any>(`${this.baseUrl}CreateBooking`, bookingEmailObj);
   }
 
+  tommarowBooking() {
+    const email = localStorage.getItem('email');
+    const TmwObj = {
+      email: email,
+    };
+
+    return this.http.post<any>(
+      `${this.baseUrl}CreateBookingForTomorrow`,
+      TmwObj
+    );
+  }
+
   getAllowaccess() {
     const email = localStorage.getItem('email');
     const allowbookingObj = {
@@ -71,6 +83,16 @@ export class BookingService {
     console.log(cancelBookingObj)
     return this.http.put<any>(`${this.baseUrl}CancelBooking`,cancelBookingObj);
 
+  }
+
+  getViewBooking() {
+    const email = localStorage.getItem('email');
+    console.log(email);
+    const viewEmailObj = {
+      email: email
+    } 
+   
+    return this.http.post<any>(`${this.baseUrl}ViewBookings`, viewEmailObj);
   }
 
 

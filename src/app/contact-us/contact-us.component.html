@@ -1,0 +1,35 @@
+<app-header></app-header>
+<div class="contact-us-container">
+  <div class="contact-info-container">
+    <h2>Contact Us</h2>
+    <p>Atladara</p>
+    <p>Vadodara, Gujrat</p>
+    <p>Phone: 888-555-6425</p>
+    <p>Email: <a href="mailto:info@example.com">rishbhsoftware@gmail.com</a></p>
+  </div>
+  <div class="contact-form-container">
+    <form [formGroup]="FormData" (ngSubmit)="onSubmit(FormData.value)">
+      <mat-form-field class="full-name-field">
+        <mat-label>Full Name</mat-label>
+        <input type="text" matInput formControlName="Fullname" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email" matInput formControlName="Email" required />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Subject</mat-label>
+        <input matInput formControlName="Subject" />
+      </mat-form-field>
+      <div class="message-container">
+        <mat-form-field class="full-width">
+          <mat-label>Message</mat-label>
+          <textarea matInput formControlName="Comment" required></textarea>
+        </mat-form-field>
+      </div>
+      <button type="submit" class="submit-button" [disabled]="!FormData.valid">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
