@@ -17,6 +17,7 @@ import { Subscription, catchError, forkJoin } from 'rxjs';
 import { BookingService } from '../Services/booking.service';
 import { NgToastService } from 'ng-angular-popup';
 import { HttpErrorResponse } from '@angular/common/http';
+import { WeekDay } from '@angular/common';
 
 const today = new Date();
 const month = today.getMonth();
@@ -58,10 +59,24 @@ export class BookingComponent implements OnInit {
       next: (res) => {
         this.allowaccess = res.allowAccess;
        
-        console.log('Allow Access:', this.allowaccess); // Output the allowed access
-        this.Maxdate= this.calculateMaxDate(this.Mindate, this.allowaccess - 1)
-        console.log('maxdate:' ,this.Maxdate);  // 
-        console.log('mindate:',this.Mindate);
+       // console.log('Allow Access:', this.allowaccess); // Output the allowed access
+
+               // if weekends then today is not accessible 
+               //and book a meal from weekdays to access days
+               // if sat and sun then addys will addons
+               //(monday + accessday)
+       if(today.getDay() === 6 || today.getDay() === 0)
+        {
+          this.Maxdate= this.calculateMaxDate(this.Mindate, this.allowaccess);
+        }
+        else   // today is accessable and book a meal from tomorro to accessday - 1
+               //  (today +( tomorrom + acc.day  - 1))  // if weekdays then
+        {
+          this.Maxdate= this.calculateMaxDate(this.Mindate, this.allowaccess - 1);
+        }
+        
+       // console.log('maxdate:' ,this.Maxdate);  // 
+       // console.log('mindate:',this.Mindate);
       },
       error: (error) => {
         console.error('Error fetching data:', error);

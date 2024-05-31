@@ -36,7 +36,7 @@ const routes: Routes = [
   //{ path: 'coupon', component:CouponComponent },
   //{ path: 'booking', component: BookingComponent,canActivate: [authGuard] },
   { path: 'home', component: HomeComponent , canActivate: [authGuard]},
- // { path: 'signup', component: SignupComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgotpasswordComponent },
   { path: 'reset', component: ResetComponent, canActivate: [authGuard] },
  // { path: 'view', component:ViewBookingComponent },

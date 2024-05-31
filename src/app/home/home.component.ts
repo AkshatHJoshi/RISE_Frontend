@@ -98,8 +98,16 @@ export class HomeComponent implements OnInit {
 
       const maxDate = this.calculateMaxDate(today, this.allowaccess);
       maxDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
+     if (this.isWeekend(today)  ||this.isCanceled(today) )
+      {
+        return date > today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
 
-      return date >= today && date < maxDate && !this.isWeekend(date) && !this.isCanceled(date);
+      }
+      else{
+        return date >= today && date < maxDate && !this.isWeekend(date) && !this.isCanceled(date);
+
+      }
+
     };
   }
 

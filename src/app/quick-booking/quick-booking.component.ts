@@ -23,22 +23,36 @@ export class QuickBookingComponent {
   ngOnInit(): void {
     this.today = new Date();
     this.tomorrow = new Date(this.today);
-    this.tomorrow.setDate(this.today.getDate() + 1);
-    this.tomorrowdate = this.tomorrow.toISOString().split('T')[0];
+    this.tomorrow.setDate(this.today.getDate() + 1);  
+    
 
-    if (this.tomorrow.getDay() === 6) {
-      // Saturday
-      this.tomorrow.setDate(this.tomorrow.getDate() + 2); // Move to Monday
+    const dayIndex = this.tomorrow.getDay();
+    
+    if (dayIndex === 6) {
+      // If tomorrow is Saturday, move to Monday
+      this.tomorrow.setDate(this.tomorrow.getDate() + 3);  //that 1 day extrs for toISOString()
       this.displayDay = 'Monday';
-    } else if (this.tomorrow.getDay() === 0) {
-      // Sunday
-      this.tomorrow.setDate(this.tomorrow.getDate() + 1); // Move to Monday
+    }
+     else if (dayIndex === 0) {
+      // If tomorrow is Sunday, move to Monday
+      this.tomorrow.setDate(this.tomorrow.getDate() + 2);  //that 1 day extrs for toISOString()
       this.displayDay = 'Monday';
-    } else {
-      this.displayDay = 'tomorrow';
+    } 
+    else {
+      const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      this.displayDay = daysOfWeek[dayIndex];
     }
 
-    this.tomorrowdate = this.tomorrow.toISOString().split('T')[0];
+    // Format the date as YYYY-MM-DD
+    this.tomorrowdate = this.tomorrow.toISOString().split('T')[0];// this method is based on UTC 
+                                                                  // if we are in behind UTC timezone 
+                                                                  //then it gives previous date
+                                                                  // so increase 1 day extra in this.tomorrow
+   // console.log(this.tomorrow);
+   // console.log(this.tomorrowdate);
+   
+ 
+    
   }
 
   Booking(): void {
