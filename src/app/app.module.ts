@@ -37,6 +37,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { LogoutComponent } from './logout/logout.component';
+import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 
 // -----------------------------------------------------
 
@@ -54,6 +55,7 @@ import { LogoutComponent } from './logout/logout.component';
     ContactUsComponent,
     ChangePasswordComponent,
     LogoutComponent,
+    QrCodeScannerComponent,
   ],
   imports: [
     //-------

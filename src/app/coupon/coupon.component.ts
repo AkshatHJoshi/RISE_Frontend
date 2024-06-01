@@ -12,7 +12,7 @@ export class CouponComponent implements OnInit {
   showQRCode: boolean = false; // Initialize showQRCode to false
   isExpired: boolean = false; // Initialize isExpired to false
   showBtn: boolean = false; // Set showBtn to false to hide the button
-  qrcode!: string;
+  qrcode!: string ;
   name!:string;
 
    constructor ( private qrcodeservice :QrCodeService){

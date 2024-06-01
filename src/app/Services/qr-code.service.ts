@@ -19,4 +19,18 @@ export class QrCodeService {
    
     return this.http.post<any>(`${this.baseUrl}GenerateCouponCode`, qrEmailObj);
   }
+
+  checkQrCode(qrdata: any)
+  {
+    const email = localStorage.getItem('email');
+    console.log(email);
+    const qrvalidateObj = {
+     
+      email: email,
+      couponCode : qrdata
+    } 
+   
+    return this.http.post<any>(`${this.baseUrl}ValidateCouponCode`, qrvalidateObj);
+
+  }
 }

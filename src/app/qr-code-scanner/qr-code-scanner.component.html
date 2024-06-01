@@ -1,0 +1,13 @@
+<div class="outer">
+    <div class="scanner-container">
+      <button (click)="startScanner()" class="scan-button">Scan QR Code</button>
+      <button (click)="stopScanner()" class="stop-button">Stop Scanning</button>
+      <h1 *ngIf="errorMessage" class="error-message">{{ errorMessage }}</h1>
+    </div>
+    <div id="reader" class="qr-reader"></div>
+    <h1 *ngIf="isValidUser" class="valid-user-message">Thank You, Valid User!</h1>
+</div>
+  
+
+  <!-- <p *ngIf="qrCodeData">QR Code Data: {{ qrCodeData }}</p> -->
+  

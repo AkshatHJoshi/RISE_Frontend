@@ -1,0 +1,78 @@
+/* Container for the scanner button and reader */
+/* Container for the scanner buttons and reader */
+.outer {
+    background-color: aqua;
+    height: 100vh;
+  }
+  
+  .scanner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  
+  /* Scan and Stop buttons styles */
+  .scan-button, .stop-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s;
+    margin: 5px;
+  }
+  
+  .scan-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .stop-button:hover {
+    background-color: #b30a0a;
+  }
+  
+  /* QR reader div styles */
+  .qr-reader {
+    width: 500px;
+    height: 500px;
+    margin: 50px auto;
+    display: none; /* Initially hidden */
+    background-color: #fff;
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(20, 8, 81, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  /* Error message styles */
+  .error-message {
+    color: rgb(0, 0, 0);
+    
+    font-size: 50px;
+  }
+  
+  /* Valid user message styles */
+  .valid-user-message {
+    color: blue;
+    text-decoration: solid;
+    font-weight: bolder;
+    text-shadow: 5px;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 50px;
+  }
+  
+  /* Ensure body takes up the full height of the viewport */
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+  }
+  

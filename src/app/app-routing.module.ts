@@ -17,6 +17,7 @@ import { CouponComponent } from './coupon/coupon.component';
 import { ViewBookingComponent } from './view-booking/view-booking.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,7 @@ const routes: Routes = [
   { path: '', component: LoginComponent },
   // { path: 'header', component:HeaderComponent },
   { path: 'login', component: LoginComponent },
-  //{ path: 'coupon', component:CouponComponent },
+  { path: 'coupon', component:CouponComponent },
   //{ path: 'booking', component: BookingComponent,canActivate: [authGuard] },
   { path: 'home', component: HomeComponent , canActivate: [authGuard]},
   { path: 'signup', component: SignupComponent },
@@ -43,17 +44,9 @@ const routes: Routes = [
   { path: 'contact', component:ContactUsComponent, canActivate: [authGuard] },
   { path: 'aboutus', component: AboutUsComponent, canActivate: [authGuard] },
   { path: 'policy',component: PrivacyPolicyComponent,canActivate: [authGuard], },
-
-     {
-    path: 'terms',
-    component: TermsAndConditionsComponent,
-    canActivate: [authGuard],
-  },
-  {
-    path: 'Change',
-    component: ChangePasswordComponent,
-    canActivate: [authGuard],
-  },
+  { path: 'scanner',component: QrCodeScannerComponent },
+  { path: 'terms', component: TermsAndConditionsComponent, canActivate: [authGuard],},
+  { path: 'Change', component: ChangePasswordComponent, canActivate: [authGuard], },
 ];
 
 @NgModule({
