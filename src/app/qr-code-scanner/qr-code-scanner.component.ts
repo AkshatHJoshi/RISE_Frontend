@@ -76,19 +76,20 @@ export class QrCodeScannerComponent implements OnInit {
         this.errorMessage = null;
         this.dhanyawad.play(); // Play Thank You sound
         this.toast.success({
-          detail: 'User validate and Status Successfully updated',
+          detail: 'User validated and Status Successfully updated',
           summary: res.message,
           duration: 5000,
         });
       },
       error: (err) => {
         this.isValidUser = false;
-        this.errorMessage = 'Something went wrong. Please try again.';
+        const errorMessage = 'Something Went Wrong: ' + err.message;
         this.toast.error({
-          detail: 'Something Went Wrong',
-          summary: err.message,
+          detail: 'Error',
+          summary: errorMessage,
           duration: 5000,
         });
+        this.errorMessage = errorMessage;
       },
     });
   }

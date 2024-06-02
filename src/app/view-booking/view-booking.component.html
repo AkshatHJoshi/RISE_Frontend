@@ -5,10 +5,17 @@
       <button (click)="closeForm()">&#10006;</button>
     </div>
     <div class="form-group">
-      <label>Total Bookings: 10</label>
+      <p>Total Bookings for Selected Month: {{ bookingCount }}</p>
+      <p>Total Bookings for All Months: {{ totalBookingCount }}</p>
       <mat-card>
-        <mat-calendar [dateClass]="dateClass()" [selected]="selectedDate"
-          (selectedChange)="onSelect($event)"></mat-calendar>
+        <mat-calendar
+          #calendar
+          [dateClass]="dateClass()"
+          [selected]="selectedDate"
+          (selectedChange)="onSelect($event)"
+          (monthSelected)="onActiveDateChange($event)"
+          (yearSelected)="onActiveDateChange($event)"
+        ></mat-calendar>
       </mat-card>
     </div>
   </div>

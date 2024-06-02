@@ -27,9 +27,10 @@
           <textarea matInput formControlName="Comment" required></textarea>
         </mat-form-field>
       </div>
-      <button type="submit" class="submit-button" [disabled]="!FormData.valid">
+      <button type="submit" class="submit-button"  (click)="contectdata()"  [disabled]="!FormData.valid">
         Submit
       </button>
     </form>
   </div>
 </div>
+<app-footer></app-footer>

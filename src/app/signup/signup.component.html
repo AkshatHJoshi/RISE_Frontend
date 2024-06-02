@@ -5,125 +5,137 @@
         <div class="card">
           <div class="text-center">
             <div class="logo-wrapper">
-              <img src="./../../../assets/logo.svg" alt="Rishabh Software" />
+              <img
+                src="./../../../assets/logo.svg"
+                alt="Rishabh Software"
+                class="logo-image"
+              />
               <span id="text" class="Meal">Meal Facility</span>
             </div>
             <h1>Register</h1>
           </div>
-          <form>
-            <form [formGroup]="signupForm">
-              <div class="mb-3">
-                <label for="exampleInputName" class="form-label"
-                  >First Name</label
-                >
-                <input
-                  formControlName="firstname"
-                  type="text"
-                  class="form-control"
-                  id="exampleInputName"
-                />
-                <small
-                  *ngIf="
-                    signupForm.controls['firstname'].dirty &&
-                    signupForm.hasError('required', 'firstname')
-                  "
-                  class="text-danger"
-                  >*Firstname is Required</small
-                >
-              </div>
-  
-              <div class="mb-3">
-                <label for="exampleInputLName" class="form-label"
-                  >Last Name</label
-                >
-                <input
-                  formControlName="lastname"
-                  type="text"
-                  class="form-control"
-                  id="exampleInputInputLName"
-                />
-                <small
-                  *ngIf="
-                    signupForm.controls['lastname'].dirty &&
-                    signupForm.hasError('required', 'lastname')
-                  "
-                  class="text-danger"
-                  >*Lastname is Required</small
-                >
-              </div>
-  
-              <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email</label>
-                <input
-                  formControlName="email"
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1"
-                  aria-describedby="emailHelp"
-                />
-                <small
-                  *ngIf="
-                    signupForm.controls['email'].dirty &&
-                    signupForm.hasError('required', 'email')
-                  "
-                  class="text-danger"
-                  >*Email is Required</small
-                >
-              </div>
-  
-              <div class="mb-3">
-                <label for="exampleInputuserName" class="form-label"
-                  >UserName</label
-                >
-                <input
-                  formControlName="userName"
-                  type="text"
-                  class="form-control"
-                  id="exampleInputuserName"
-                />
-                <small
-                  *ngIf="
-                    signupForm.controls['userName'].dirty &&
-                    signupForm.hasError('required', 'userName')
-                  "
-                  class="text-danger"
-                  >*userName is Required</small
-                >
-              </div>
-  
-              <div class="mb-3">
-                <label for="exampleInputPassword" class="form-label"
-                  >Password</label
-                >
-                <input
-                  formControlName="password"
-                  type="password"
-                  class="form-control"
-                  id="exampleInputPassword"
-                />
-                <small
-                  *ngIf="
-                    signupForm.controls['password'].dirty &&
-                    signupForm.hasError('required', 'password')
-                  "
-                  class="text-danger"
-                  >*password is Required</small
-                >
-              </div>
-              <button (click)="onSignup()" type="submit" class="btn btn-primary">
-                Sign up
-              </button>
-              <div class="L_account">
-                <p>
-                  Already have an account?
-                  <a routerLink="/login">Login</a>
-                </p>
-              </div>
-            </form>
+
+          <form [formGroup]="signupForm" class="p-4">
+            <mat-form-field class="mb-3" appearance="fill">
+              <mat-label>First Name</mat-label>
+              <input
+                matInput
+                formControlName="firstname"
+                id="exampleInputName"
+                placeholder="First Name"
+              />
+              <mat-error
+                *ngIf="
+                  signupForm.controls['firstname'].dirty &&
+                  signupForm.controls['firstname'].hasError('required')
+                "
+              >
+                * Firstname is Required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mb-3" appearance="fill">
+              <mat-label>Last Name</mat-label>
+              <input
+                matInput
+                formControlName="lastname"
+                id="exampleInputInputLName"
+                placeholder="Last Name"
+              />
+              <mat-error
+                *ngIf="
+                  signupForm.controls['lastname'].dirty &&
+                  signupForm.controls['lastname'].hasError('required')
+                "
+              >
+                * Lastname is Required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mb-3" appearance="fill">
+              <mat-label>Email</mat-label>
+              <input
+                matInput
+                formControlName="email"
+                [(ngModel)]="restPasswordEmail"
+                (ngModelChange)="checkValidEmail($event)"
+                type="email"
+                id="exampleInputEmail1"
+                placeholder="Email"
+              />
+              <!-- <mat-error
+                *ngIf="
+                  signupForm.controls['email'].dirty &&
+                  signupForm.controls['email'].hasError('required')
+                "
+              >
+                * Email is Required
+              </mat-error> -->
+              <small
+                *ngIf="!isValidEmail && restPasswordEmail"
+                class="text-danger"
+                >*Email is invalid</small
+              >
+            </mat-form-field>
+
+            <mat-form-field class="mb-3" appearance="fill">
+              <mat-label>Username</mat-label>
+              <input
+                matInput
+                formControlName="userName"
+                id="exampleInputuserName"
+                placeholder="Username"
+              />
+              <mat-error
+                *ngIf="
+                  signupForm.controls['userName'].dirty &&
+                  signupForm.controls['userName'].hasError('required')
+                "
+              >
+                * Username is Required
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field id="pas" class="mb-3" appearance="fill">
+              <mat-label>Password</mat-label>
+              <input
+                matInput
+                formControlName="password"
+                type="password"
+                [type]="type"
+                id="exampleInputPassword"
+                placeholder="Password"
+              />
+              <i (click)="toggleVisibility()" class="fa {{ eyeIcon }}"></i>
+              <mat-error
+                *ngIf="
+                  signupForm.controls['password'].dirty &&
+                  signupForm.controls['password'].hasError('required')
+                "
+              >
+                * Password is Required
+              </mat-error>
+            </mat-form-field>
+
+            <button
+              mat-raised-button
+              (click)="onSignup()"
+              type="submit"
+              color="primary"
+              class="mb-3"
+            >
+              Sign up
+            </button>
+
+            <div class="L_account">
+              <p>
+                Already have an account?
+                <a routerLink="/login">Login</a>
+              </p>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-  
 </div>

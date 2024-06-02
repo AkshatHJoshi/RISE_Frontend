@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 export class BookingService {
 
   private baseUrl: string = 'https://localhost:7205/api/Booking/';
+  private baseUrl1:string = 'https://localhost:7205/api/User/';
   constructor(private http: HttpClient, private router: Router) {}
 
 
@@ -32,10 +34,30 @@ export class BookingService {
     return this.http.post<any>(`${this.baseUrl}CreateBooking`, bookingEmailObj);
   }
 
-  tommarowBooking() {
+
+  sendcontectdata(contectobj: any)
+  {
+   // const email = localStorage.getItem('email');
+   //email also comes from frontend form
+
+    const contectobj1 = {
+      fullName:contectobj.Fullname ,
+      email:contectobj.Email,
+      subject : contectobj.Subject,
+      body: contectobj.Comment
+    } 
+    console.log("ooooooooooo" ,contectobj1);
+
+    return this.http.post<any>(`${this.baseUrl1}contectus`, contectobj1);
+  
+  }
+
+
+  tommarowBooking(mealType: string): Observable<any> {
     const email = localStorage.getItem('email');
     const TmwObj = {
       email: email,
+      type: mealType, // Include the meal type in the request payload
     };
 
     return this.http.post<any>(
@@ -66,23 +88,19 @@ export class BookingService {
 
   }
 
-  doCancelBooking(selectedDate :any)
-  {
+  doCancelBooking(selectedDate: any, mealOption: string) {
     const email = localStorage.getItem('email');
-   // console.log(selectedDate)              // till here comes selected day 
-   let nextDay = new Date(selectedDate);
-   nextDay.setDate(selectedDate.getDate() + 1);  // adding one day because it was canceling previous day then selected day
+    let nextDay = new Date(selectedDate);
+    nextDay.setDate(selectedDate.getDate() + 1);
+
     const cancelBookingObj = {
-     
       email: email,
-      selecteddate: nextDay.toISOString().split("T")[0]
-      
+      selecteddate: nextDay.toISOString().split('T')[0] ,
+      type: mealOption, // Add meal option to the cancelBookingObj
+    };
 
-    } 
-    
-    console.log(cancelBookingObj)
-    return this.http.put<any>(`${this.baseUrl}CancelBooking`,cancelBookingObj);
-
+    console.log(cancelBookingObj);
+    return this.http.put<any>(`${this.baseUrl}CancelBooking`, cancelBookingObj);
   }
 
   getViewBooking() {

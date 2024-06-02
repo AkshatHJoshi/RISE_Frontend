@@ -1,13 +1,20 @@
 
-<form>
-    <h2>Cancel Booking</h2>
-    <div class="form-group">
-      <p>Are you sure you want to cancel your booking?</p>
-    </div>
-    <div class="form-actions">
-      <button mat-button (click)="closeForm()">No</button>
-      <button mat-raised-button color="warn" (click)="cancelBooking()" >
-        Yes
-      </button>
-    </div>
-  </form>
+<form [formGroup]="cancelBookingForm" (ngSubmit)="cancelBooking()">
+  <h2>Cancel Booking</h2>
+  <div class="form-group">
+    <p>Are you sure you want to cancel your booking?</p>
+  </div>
+  <div class="form-group">
+    <mat-radio-group formControlName="mealType" required>
+      <mat-radio-button value="Lunch">Lunch</mat-radio-button>
+      <mat-radio-button value="Dinner">Dinner</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="cancelBookingForm.controls['mealType'].hasError('required')">
+      * Please select a meal type
+    </mat-error>
+  </div>
+  <div class="form-actions">
+    <button mat-button type="button" (click)="closeForm()">No</button>
+    <button mat-raised-button color="warn" type="submit">Yes</button>
+  </div>
+</form>

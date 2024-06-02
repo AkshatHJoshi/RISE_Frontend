@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from 'src/app/Services/api.service';
-import { AuthService } from 'src/app/Services/auth.service';
-import { MatDialog } from '@angular/material/dialog';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { BookingComponent } from '../booking/booking.component';
-import { BookingService } from '../Services/booking.service';
-import { CancelBookingComponent } from '../cancel-booking/cancel-booking.component';
-import { NgToastComponent, NgToastService } from 'ng-angular-popup';
-import { forkJoin } from 'rxjs';
-import { ViewBookingComponent } from '../view-booking/view-booking.component';
-import { QuickBookingComponent } from '../quick-booking/quick-booking.component';
+import { forkJoin } from "rxjs";
+import { BookingComponent } from "../booking/booking.component";
+import { CancelBookingComponent } from "../cancel-booking/cancel-booking.component";
+import { QuickBookingComponent } from "../quick-booking/quick-booking.component";
+import { ViewBookingComponent } from "../view-booking/view-booking.component";
+import { BookingService } from "../Services/booking.service";
+import { MatDialog } from "@angular/material/dialog";
+import { NgToastService } from "ng-angular-popup";
+import { AuthService } from "../Services/auth.service";
+import { ApiService } from "../Services/api.service";
+import { Component, OnInit } from "@angular/core";
 
 @Component({
   selector: 'app-home',
@@ -17,7 +16,7 @@ import { QuickBookingComponent } from '../quick-booking/quick-booking.component'
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  selectedDate!: Date | null ;
+  selectedDate!: Date | null;
   selectedTime: string | null = null;
   bookedDates: Date[] = [];
   canceledDates: Date[] = [];
@@ -26,10 +25,12 @@ export class HomeComponent implements OnInit {
   credit!: number;
   
   showCancelButton: boolean = false;
-  showQrCodeButton: boolean = true;
-  showQrCodeComponent: boolean=false;
+  showQrCodeButton: boolean = false;
+  showQrCodeComponent: boolean = false;
   todays_booking!: boolean;
-  mydate! : Date ;
+  mydate!: Date;
+
+  todbokd: boolean = true;
 
   constructor(
     private api: ApiService,
@@ -42,13 +43,13 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('in  ng on init: ',this.todays_booking)
+    console.log('in ng on init: ', this.todays_booking)
     this.selectedDate = new Date();
     forkJoin({
       allowAccess: this.bookingservice.getAllowaccess(),
       credits: this.bookingservice.getCredits(this.selectedDate)
     }).subscribe({
-      next: (res) => {
+      next: (res: { allowAccess: { allowAccess: number; }; credits: { credit: number; todays_booking: boolean; }; }) => {
         this.allowaccess = res.allowAccess.allowAccess;
         this.credit = res.credits.credit;
         this.todays_booking = res.credits.todays_booking;
@@ -57,31 +58,36 @@ export class HomeComponent implements OnInit {
         console.log('Todays booking:', this.todays_booking);
         this.setDateFilter();
         this.checkMealBookingForToday();
-        this.checkTimeToHideQrCode();
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error fetching data:', error);
       }
     });
 
     const qrCodeDisplayEndTime = localStorage.getItem('qrCodeDisplayEndTime');
     if (qrCodeDisplayEndTime) {
-      const endTime = new Date(qrCodeDisplayEndTime);
+      const endTime = new Date(parseInt(qrCodeDisplayEndTime, 10));  // 10 used for decimal
       if (new Date() < endTime) {
         this.showQrCodeComponent = true;
+        const remainingTime = endTime.getTime() - new Date().getTime();
+        setTimeout(() => {
+          this.showQrCodeComponent = false;
+          localStorage.removeItem('qrCodeDisplayEndTime');
+        }, remainingTime);
       } else {
         this.showQrCodeComponent = false;
         localStorage.removeItem('qrCodeDisplayEndTime');
       }
-
     }
-    console.log('seeeeeeeeeeeeeee:',this.selectedDate);
-    console.log('sadasd',this.mydate);
-   
+
+    // Set the menu for today by default
+    this.updateMenuForSelectedDate(this.selectedDate);
+
+    console.log('seeeeeeeeeeeeeee:', this.selectedDate);
+    console.log('sadasd', this.mydate);
   }
 
   setDateFilter() {
-    
     this.dateFilter = (date: Date | null): boolean => {
       if (!date) {
         return false;
@@ -98,16 +104,13 @@ export class HomeComponent implements OnInit {
 
       const maxDate = this.calculateMaxDate(today, this.allowaccess);
       maxDate.setHours(0, 0, 0, 0); // Reset time to compare only dates
-     if (this.isWeekend(today)  ||this.isCanceled(today) )
-      {
+      if (this.isWeekend(today) || this.isCanceled(today)) {
         return date > today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
-
+      } else {
+        return date >= today && date <= maxDate && !this.isWeekend(date) && !this.isCanceled(date);
       }
-      else{
-        return date >= today && date < maxDate && !this.isWeekend(date) && !this.isCanceled(date);
-
-      }
-
+      // i am not counting today because user can't booked for today 
+      // from here it is required to enable today
     };
   }
 
@@ -154,29 +157,27 @@ export class HomeComponent implements OnInit {
     return currentDate;
   }
 
-  onDateSelected(event: Date | null) {////////////////////////////////////////
+  onDateSelected(event: Date | null) {
     if (event === null)  
       return;
 
     this.selectedDate = event;
     
-      // calling api aging to ckeck booking status
-      this.bookingservice.getCredits(this.selectedDate).subscribe({
-        next: (res) => {
-          this.todays_booking = res.todays_booking;
-          console.log('Todays booking:', this.todays_booking);
-        //  this.setDateFilter();
-          this.checkMealBookingForToday();
-          this.updateCancelButtonStatus(this.mydate);
-         // this.checkTimeToHideQrCode();
-        },
-        error: (error) => {
-          console.error('Error fetching data:', error);
-        }
-      });
+    // calling api again to check booking status
+    this.bookingservice.getCredits(this.selectedDate).subscribe({
+      next: (res: { todays_booking: boolean; }) => {
+        this.todays_booking = res.todays_booking;
+        console.log('Todays booking:', this.todays_booking);
+        this.checkMealBookingForToday();
+        this.updateCancelButtonStatus(this.mydate);
+      },
+      error: (error: any) => {
+        console.error('Error fetching data:', error);
+      }
+    });
 
-    const dayName = this.getDayName(this.selectedDate);
-    this.currentMenu = this.dayMenus[dayName] || { lunch: [], dinner: [] };
+    // Update the menu for the selected date
+    this.updateMenuForSelectedDate(this.selectedDate);
 
     const currentDate = new Date();
     
@@ -186,13 +187,12 @@ export class HomeComponent implements OnInit {
       const seconds = currentDate.getSeconds().toString().padStart(2, '0');
       this.selectedTime = `${hours}:${minutes}:${seconds}`;
     }
-   
-   //this.checkMealBookingForToday();
-   // this.updateCancelButtonStatus(date);
-
   }
 
- 
+  updateMenuForSelectedDate(date: Date): void {
+    const dayName = this.getDayName(date);
+    this.currentMenu = this.dayMenus[dayName] || { lunch: [], dinner: [] };
+  }
 
   getDayName(date: Date): string {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -245,7 +245,7 @@ export class HomeComponent implements OnInit {
     this.dialog.open(ViewBookingComponent);
   }
 
-  openQuickBookingDialog(){
+  openQuickBookingDialog() {
     this.dialog.open(QuickBookingComponent);
   }
 
@@ -257,22 +257,15 @@ export class HomeComponent implements OnInit {
     this.auth.signOut();
   }
 
-   openQrCodeDialog() {
+  openQrCodeDialog() {
+ 
     this.showQrCodeComponent = true;
-    this.showQrCodeButton = false;
-    const displayDurationMinutes = 15; // Set your desired display duration in minutes
-    const displayEndTime = new Date(
-      new Date().getTime() + displayDurationMinutes * 60000
-    );
-    localStorage.setItem('qrCodeDisplayEndTime', displayEndTime.toISOString()); // Store the end time in local storage
-    // this.dialog.open(CouponComponent, {
-    //   data: { selectedDate: this.selectedDate },
-    // });
 
-    localStorage.setItem('qrCodeButtonClicked', 'true');
+    setTimeout(() => {
+      this.showQrCodeComponent = false;
+      localStorage.removeItem('qrCodeDisplayEndTime');
+    }, 15 * 60000);                                   // 15 minutes in milliseconds
   }
-
-  
 
   isSameDay(date1: Date, date2: Date): boolean {
     return (
@@ -281,39 +274,25 @@ export class HomeComponent implements OnInit {
       date1.getFullYear() === date2.getFullYear()
     );
   }
- checkMealBookingForToday(): void {
+
+  checkMealBookingForToday(): void {
     const currentDate = new Date();
-   // const selectedDate = this.selectedDate;
-   if (this.selectedDate == null)
-   { this.mydate  = new Date();}
-   else{this.mydate = this.selectedDate;}
-   console.log('sadasd',this.mydate);//////////////
+    if (this.selectedDate == null) {
+      this.mydate = new Date();
+    } else {
+      this.mydate = this.selectedDate;
+    }
     const isToday = this.isSameDay(currentDate, this.mydate);
-    console.log('istoday',isToday);
-    console.log('isbooked',this.todays_booking);
+   
+    console.log('isbooked', this.todays_booking);
     const currentHour = currentDate.getHours();
 
-    const qrCodeButtonClicked =
-      localStorage.getItem('qrCodeButtonClicked') === 'true';
-
-
-    if (isToday && currentHour >= 12 && currentHour < 14) {
-      this.showQrCodeButton = this.todays_booking && !qrCodeButtonClicked; // Replace with actual meal booking check
+    if (isToday && (   (currentHour >= 1 && currentHour < 5) || (currentHour >= 20 && currentHour < 22) )  && this.todays_booking) {
+      console.log("currentttttttttHour", isToday);
+      this.showQrCodeButton = true;
     } else {
       this.showQrCodeButton = false;
-    }
-  }
-
-  checkTimeToHideQrCode(): void {
-    const currentDate = new Date();
-    const currentHour = currentDate.getHours();
-   
-
-    if (currentHour >= 14)  //this will not show qrcode and button after 2pm
-      {
       this.showQrCodeComponent = false;
-      this.showQrCodeButton = false;
-      localStorage.removeItem('qrCodeDisplayEndTime'); // Clear the stored end time
     }
   }
 
@@ -343,7 +322,7 @@ export class HomeComponent implements OnInit {
 
     if (isTomorrow) {
       this.showCancelButton =
-        this.isSameDay(date, tomorrowDate ) &&
+        this.isSameDay(date, tomorrowDate) &&
         isWeekday &&
         before10PM &&
         this.todays_booking; // Show the cancel button if the meal is booked for tomorrow, it's a weekday, and before 10 PM today
@@ -357,6 +336,4 @@ export class HomeComponent implements OnInit {
       this.showCancelButton = false;
     }
   }
- 
 }
-

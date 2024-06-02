@@ -1,113 +1,144 @@
 
 .demo-inline-calendar-card {
-    width: 500px;
-    margin: auto;
-  }
-  
-  .home-page {
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-  }
-  
-  .home-content {
-    width: 100%;
-    display: flex;
-  }
-  
-  .home-left,
-  .home-right {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem;
-  }
-  
-  .Cancel{
-    margin-top: 200px;
-  }
-  .view-booking {
-    margin-bottom: 20px;
-    padding: 12px;
-    background-color: red;
-    align-self: center;
-  }
-  
-  .book-div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-  
-  .book-a-meal {
-    margin: 10px;
-    padding: 10px 12px;
-    background-color: red;
-    font-weight: 500;
-  }
-  
-  .today-date .mat-calendar-body-cell-today {
-    background-color: red !important;
-  }
-  
-  .mat-calendar-body-cell.today .mat-calendar-body-cell-content::after {
-    content: "";
-    display: block;
-    width: 8px;
-    height: 8px;
-    background-color: green;
-    border-radius: 50%;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-  }
-  .today-meal-wrapper {
-    margin-bottom: 30px;
-    padding: 20px;
-    background-color: rgb(16, 5, 100);
-    border-radius: 30px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 400px;
-    margin: 0 auto;
-    color: white;
-    padding-left: 30px;
-  }
-  .today-meal-block {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .today-meal-col {
-    flex: 1;
-  }
-  
-  .head h4 {
-    padding-left: 16px;
-    /* font-size: 20px; */
-    font-weight: 600;
-  }
-  
-  .meal-header h2 {
-    width: 300px;
-    font-weight: 700;
-    text-align: center;
-  }
-  
-  .today-meal h4 {
-    margin-bottom: 15px;
-    color: #ffffff; /* White text color */
-    font-size: 34px; /* Larger font size */
-  }
-  
-  .today-meal li {
-    margin-bottom: 10px;
-    color: #fff; /* White text color */
-    font-size: 15px; /* Larger font size */
-  
-    pointer-events: none;
-    opacity: 0.6;
-  }
-  
+  width: 500px;
+  margin: auto;
+}
+
+.home-page {
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.home-content {
+  width: 100%;
+  display: flex;
+}
+
+.home-left .home-right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  position: absolute;
+  left: 30%;
+}
+
+.view-booking {
+  margin-bottom: 20px;
+  padding: 12px;
+  background-color: red;
+  align-self: center;
+}
+
+.book-div {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  right: 28%;
+  height: 100%;
+}
+
+.quickbook {
+  position: absolute;
+  display: flex;
+  top: 610px;
+  justify-content: center;
+  /* align-items: center; */
+  left: 45%;
+}
+
+.book-a-meal {
+  margin: 10px;
+  padding: 10px 12px;
+  background-color: red;
+  font-weight: 500;
+}
+
+.today-date .mat-calendar-body-cell-today {
+  background-color: red !important;
+}
+
+.mat-calendar-body-cell.today .mat-calendar-body-cell-content::after {
+  content: "";
+  display: block;
+  width: 8px;
+  height: 8px;
+  background-color: green;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+/* daily meal */
+
+/* Styling for meal of the day section */
+.today-meal-wrapper {
+  position: relative;
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: rgb(16, 5, 100);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 80%;
+  margin: 0 auto;
+  color: white;
+  padding-left: 30px;
+  left: 10%;
+  top: 20%;
+}
+
+.today-meal-block {
+  display: flex;
+  justify-content: space-between;
+}
+
+.today-meal-col {
+  flex: 1;
+}
+
+.head h4 {
+  padding-left: 16px;
+  /* font-size: 20px; */
+  font-weight: 600;
+}
+
+.meal-header h2 {
+  position: relative;
+  left: 40%;
+  top: 80px;
+  padding-bottom: 10px;
+  font-weight: 700;
+  padding-right: 315px;
+}
+
+.today-meal h4 {
+  margin-bottom: 15px;
+  color: #ffffff; /* White text color */
+  font-size: 34px; /* Larger font size */
+}
+
+.today-meal li {
+  margin-bottom: 10px;
+  color: #fff; /* White text color */
+  font-size: 15px; /* Larger font size */
+
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.couponDIV {
+  position: absolute;
+  left: 75%;
+  top: 200px;
+}
+
+.feedBack {
+  position: absolute;
+  left: 80%;
+  top: 400px;
+}

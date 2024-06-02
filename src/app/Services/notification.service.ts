@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class NotificationService {private baseUrl: string = 'https://localhost:7205/api/Notification/';
+private baseUrl2: string = 'https://localhost:7205/api/User/';
 
 constructor(private http: HttpClient, private router: Router) {}
 
@@ -21,6 +22,21 @@ getNotification() {
     viewNotificationObj
   );
 }
+
+username()
+{
+  const email = localStorage.getItem('email');
+  console.log(email);
+  const firstObj = {
+    username: email,
+  };
+
+  return this.http.post<any>(
+    `${this.baseUrl2}getfirstname`,firstObj
+  );
+}
+
+
 
 notificationcount()
 {

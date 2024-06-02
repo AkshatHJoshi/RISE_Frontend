@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { LoginComponent } from '../login/login.component';
-import { SignupComponent } from '../signup/signup.component';
+// import { SignupComponent } from '../signup/signup.component';
 import { ForgotpasswordComponent } from '../forgotpassword/forgotpassword.component';
 import { ResetComponent } from '../reset/reset.component';
 import { AboutUsComponent } from '../about-us/about-us.component';
@@ -22,7 +22,7 @@ import { QRCodeModule } from 'angularx-qrcode';
   declarations: [
     DashboardComponent,
     LoginComponent,
-    SignupComponent,
+    // SignupComponent,
     ForgotpasswordComponent,
     ResetComponent,
     AboutUsComponent,

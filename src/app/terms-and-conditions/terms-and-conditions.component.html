@@ -10,7 +10,7 @@
 
 <div class="terms-and-condition">
   <div class="mycard">
-    <p class="first">Last updated: 09/05/2024</p>
+    <p class="first">Last updated: 01/05/2024</p>
     <p class="first">
       Welcome to our Meal Facility for Employees! These Terms and Conditions
       ("Terms") outline the guidelines and policies for the provision of meal
@@ -46,7 +46,7 @@
       up-to-date information during registration.
     </p>
     <p class="sentance">
-      <span class="point"><i class="fas fa-circle"></i></span> Account Security:
+      <span class="point"><i class="fas fa-circle"></i></span> Account Security
       You are responsible for maintaining the confidentiality of your Meal
       Facility Account credentials and for all activities that occur under your
       account. Notify us immediately if you suspect unauthorized access to your
@@ -137,5 +137,12 @@
     <p class="sentance">
       Thank you for using our Meal Facility. We hope you enjoy your meals!
     </p>
+    <div class="agree-checkbox">
+      <input type="checkbox" id="agree" (change)="onAgreeChange($event)" />
+      <label for="agree">I agree to the Terms and Conditions</label>
+    </div>
+    <button id="submitBtn" [disabled]="!isAgreed" [class.enabled]="isAgreed" (click)="onSubmit()">Submit</button>
   </div>
 </div>
+
+<app-footer></app-footer>

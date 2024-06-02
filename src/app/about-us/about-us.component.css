@@ -1,12 +1,3 @@
-/* .div {
-  text-align: center;
-  width: 100;
-  height: 450px;
-  top: 50%;
-  background-color: blueviolet;
-  background-image: url("https://thumbor.forbes.com/thumbor/fit-in/900x510/https://www.forbes.com/health/wp-content/uploads/2022/01/foods_to_eat_to_lose_weight.jpeg");
-  background-size: 90%;
-} */
 
 #top {
   background-color: rgb(183, 183, 249);
@@ -26,29 +17,23 @@
 
 .container {
   background-color: rgb(172, 207, 255);
-  width: 100%;
-  height: 80%;
-  top: 400px;
-  position: absolute;
-  left: 100px;
-  right: 100px;
-  z-index: 999;
+  width: calc(100% - 200px);
+  margin: 0 auto;
+  position: relative;
+  top: 50px;
+
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  padding: 58.8px;
+  padding: 40px;
   border-radius: 15px;
   box-sizing: border-box;
 }
 
 .image {
-  top: 100px;
-  width: 450px;
-  height: 450px;
-  background-color: red;
-  z-index: 999;
+  width: 100%;
+  height: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-  margin-top: 0%;
-  margin-left: 100px;
   border-radius: 10px;
+  margin-top: 20px;
 }
 
 .h {
@@ -58,6 +43,7 @@
 
 .aboutUs {
   padding: 20px;
+  text-align: left;
 }
 
 .wpb_wrapper {
@@ -71,6 +57,14 @@
   line-height: 82px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+
 .vc_custom_heading {
   font-size: 70px;
+}
+
+app-footer {
+  position: relative;
+  width: 100%;
+  clear: both;
+  margin-top: 20px; /* Adjust as needed */
 }

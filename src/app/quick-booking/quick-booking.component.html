@@ -1,10 +1,17 @@
-<form>
-    <h2>Book a Meal For {{ displayDay }}</h2>
-    <div class="form-group">
-      <p>Are you want to sure to book a meal for {{ tomorrowdate }}</p>
-    </div>
-    <div class="form-actions">
-      <button mat-button (click)="closeForm()">No</button>
-      <button mat-raised-button color="warn" (click)="Booking()">Yes</button>
-    </div>
-  </form>
+<form [formGroup]="bookingForm" (ngSubmit)="Booking()">
+  <h2>Book Meal For {{ displayDate }}</h2>
+  <div class="form-group">
+    <p>Are you sure you want to book a meal for {{ tomorrowdate }}?</p>
+  </div>
+  <div class="form-group">
+    <mat-radio-group formControlName="mealType" required>
+      <mat-radio-button value="Lunch">Lunch</mat-radio-button>
+      <mat-radio-button value="Dinner">Dinner</mat-radio-button>
+    </mat-radio-group>
+  
+  </div>
+  <div class="form-actions">
+    <button mat-button type="button" (click)="closeForm()">No</button>
+    <button mat-raised-button color="warn" type="submit">Yes</button>
+  </div>
+</form>

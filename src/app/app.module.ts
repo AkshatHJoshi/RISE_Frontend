@@ -39,12 +39,16 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { LogoutComponent } from './logout/logout.component';
 import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
 
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { SignupComponent } from '../app/signup/signup.component';
 // -----------------------------------------------------
 
 
 @NgModule({
   declarations: [
-    
+    SignupComponent,
     AppComponent,
     CalendarComponent,
     BookingComponent,
@@ -56,10 +60,13 @@ import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.compon
     ChangePasswordComponent,
     LogoutComponent,
     QrCodeScannerComponent,
+    
   ],
   imports: [
     //-------
     BrowserModule,
+    MatGridListModule,
+    MatToolbarModule,
     AppRoutingModule,
     HttpClientModule,
     MatInputModule,
@@ -79,7 +86,7 @@ import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.compon
     SharedModule,NgxQrcodeStylingModule,    
     ReactiveFormsModule,
     MatDividerModule,
-    
+    MatSelectModule,
 
     MatRadioModule,
     ReactiveFormsModule,

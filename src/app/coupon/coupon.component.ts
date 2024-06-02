@@ -1,5 +1,6 @@
 import { Component, Input, OnInit , } from '@angular/core';
 import { QrCodeService } from '../Services/qr-code.service';
+import { NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-coupon',
@@ -15,7 +16,7 @@ export class CouponComponent implements OnInit {
   qrcode!: string ;
   name!:string;
 
-   constructor ( private qrcodeservice :QrCodeService){
+   constructor ( private qrcodeservice :QrCodeService,private toast: NgToastService){
     
    }
 
@@ -27,9 +28,20 @@ export class CouponComponent implements OnInit {
         this.qrcode = res.couponCode;
           this.name= res.firstName;
         this.generateQRCode();
+        this.toast.success({
+
+          detail: 'Genrated',
+          summary: res.message,
+          duration: 3000,
+        });
       },
       error: (error) => {
         console.error('Error fetching QR:', error);
+        this.toast.error({
+          detail: 'Not Genrated',
+          summary: error.message,
+          duration: 3000,
+        });
       }
     });
    
