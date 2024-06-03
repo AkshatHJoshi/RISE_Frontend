@@ -9,6 +9,7 @@ import { NgToastService } from "ng-angular-popup";
 import { AuthService } from "../Services/auth.service";
 import { ApiService } from "../Services/api.service";
 import { Component, OnInit } from "@angular/core";
+import { FeedbackComponent } from "../feedback/feedback.component";
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+ 
   selectedDate!: Date | null;
   selectedTime: string | null = null;
   bookedDates: Date[] = [];
@@ -249,6 +251,10 @@ export class HomeComponent implements OnInit {
     this.dialog.open(QuickBookingComponent);
   }
 
+  openFeedbackDialog(){
+    this.dialog.open(FeedbackComponent);
+  }
+
   logout() {
     this.auth.signOut();
   }
@@ -287,7 +293,7 @@ export class HomeComponent implements OnInit {
     console.log('isbooked', this.todays_booking);
     const currentHour = currentDate.getHours();
 
-    if (isToday && (   (currentHour >= 1 && currentHour < 5) || (currentHour >= 20 && currentHour < 22) )  && this.todays_booking) {
+    if (isToday && (   (currentHour >= 12 && currentHour < 14) || (currentHour >= 20 && currentHour < 22) )  && this.todays_booking) {
       console.log("currentttttttttHour", isToday);
       this.showQrCodeButton = true;
     } else {

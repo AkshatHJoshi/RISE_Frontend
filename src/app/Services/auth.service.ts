@@ -63,4 +63,18 @@ export class AuthService {
     };
     return this.http.post<any>(`${this.baseUrl}changePassword`, changepasObj);
   }
+
+  setCredit(setobj: any){
+
+    const setcreditObj = {
+      
+      email : setobj.email,
+      credits: setobj.credits
+    } 
+
+    console.log('setttttttttttttt:',setcreditObj);
+    return this.http.post<any>(`https://localhost:7205/api/Admin/Setcredits`, setcreditObj);
+
+    
+  }
 }

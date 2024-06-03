@@ -19,27 +19,30 @@
     >
       Cancel Booking
     </button>
-  </div>
-  <div class="quickbook">
-    <!-- <button
-      (click)="openQuickBookingDialog()"
+
+    <button
+      *ngIf="showQrCodeButton"
+      (click)="openQrCodeDialog()"
       class="btn btn-danger book-a-meal"
     >
-      Quick Booking
-    </button> -->
+      QR Code
+    </button>
+  </div>
+  <div class="quickbook">
     <button (click)="openQuickBookingDialog()" class="btn btn-danger book-a-meal">
       QuickBook
+    </button>
+    <button (click)="openAddBookingDialog()" class="btn btn-danger book-a-meal">
+      Book a Meal
+    </button>
+    <button (click)="openFeedbackDialog()" class="btn btn-danger book-a-meal">
+      Feedback
     </button>
   </div>
   <div class="home-content">
 
     <div class="home-left">
-      <!-- <button
-        (click)="openViewBookingDialog()"
-        class="btn btn-danger view-booking"
-      >
-        View Booking
-      </button> -->
+    
       <mat-card class="demo-inline-calendar-card">
         <mat-calendar
   class="calander"
@@ -80,28 +83,20 @@
         </div>
       </div>
       <div>
-        <button *ngIf="showCancelButton" (click)="openCancelBookingDialog()" class="btn btn-danger Cancel">Cancel Meal</button>
         <!-- <button *ngIf="showCancelButton" (click)="cancelBooking()" class="btn btn-danger Cancel">Cancel Meal</button> -->
       </div>
     </div>
   </div>
-  <div class="book-div">
-    <button (click)="openAddBookingDialog()" class="btn btn-danger book-a-meal">
-      Book a Meal
-    </button>
-    <button
-      *ngIf="showQrCodeButton"
-      (click)="openQrCodeDialog()"
-      class="btn btn-danger book-a-meal"
-    >
-      QR Code
-    </button>
-  </div>
+  <!-- <div class="book-div">
+   
+    
+  </div> -->
   <div class="couponDIV">
     <div *ngIf="showQrCodeComponent">
       <!-- QR Code component will be displayed here -->
       <app-coupon></app-coupon>
     </div>
 </div>
+
 </div>
 <app-footer></app-footer>

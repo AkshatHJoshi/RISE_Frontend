@@ -53,6 +53,21 @@ export class BookingService {
   }
 
 
+  sendFeedback(feedbackobj: any): Observable<any> {
+    const Email = localStorage.getItem('email');
+    const feedbackobj1 = {
+      mealType: feedbackobj.mealType,
+      message: feedbackobj.description,
+      rating: feedbackobj.rating,
+      email: Email
+    };
+
+    console.log("Feedback Object:", feedbackobj1);
+
+    return this.http.post<any>(`${this.baseUrl1}feedback`, feedbackobj1);
+  }
+
+
   tommarowBooking(mealType: string): Observable<any> {
     const email = localStorage.getItem('email');
     const TmwObj = {

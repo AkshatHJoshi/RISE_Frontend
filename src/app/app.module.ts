@@ -43,6 +43,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { SignupComponent } from '../app/signup/signup.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { AdmincreditComponent } from './admincredit/admincredit.component';
+import { AdminheaderComponent } from './adminheader/adminheader.component';
+import { AdminhomeComponent } from './adminhome/adminhome.component';
 // -----------------------------------------------------
 
 
@@ -60,6 +64,10 @@ import { SignupComponent } from '../app/signup/signup.component';
     ChangePasswordComponent,
     LogoutComponent,
     QrCodeScannerComponent,
+    FeedbackComponent,
+    AdmincreditComponent,
+    AdminheaderComponent,
+    AdminhomeComponent,
     
   ],
   imports: [
@@ -77,7 +85,7 @@ import { SignupComponent } from '../app/signup/signup.component';
     MatFormFieldModule,
     NativeDateModule,
     MatNativeDateModule,
-    MatIconModule,
+    
     FormsModule,
     MatCardModule,
     BrowserAnimationsModule,
@@ -87,9 +95,12 @@ import { SignupComponent } from '../app/signup/signup.component';
     ReactiveFormsModule,
     MatDividerModule,
     MatSelectModule,
-
-    MatRadioModule,
-    ReactiveFormsModule,
+    
+    
+    
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

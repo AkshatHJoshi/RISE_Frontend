@@ -1,0 +1,45 @@
+<div class="feedback-form-container">
+    <mat-card class="feedback-form-card">
+      <mat-toolbar color="primary"> Feedback Form </mat-toolbar>
+      <form
+        [formGroup]="feedbackForm"
+        (ngSubmit)="onSubmit(feedbackForm.value)"
+        class="p-4 feedback-form"
+      >
+        <mat-form-field appearance="fill" class="mb-3">
+          <mat-label>Meal Type</mat-label>
+          <mat-select formControlName="mealType" required>
+            <mat-option value="Lunch">Lunch</mat-option>
+            <mat-option value="Dinner">Dinner</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Describe Your Feedback</mat-label>
+          <textarea matInput formControlName="description" required></textarea>
+          <mat-error
+            *ngIf="feedbackForm.controls['description'].hasError('required')"
+          >
+            * Description is Required
+          </mat-error>
+        </mat-form-field>
+  
+        <div class="rating">
+          <label>Rating:</label>
+          <mat-icon *ngFor="let star of stars" (click)="rate(star)">
+            {{ star <= rating ? "star" : "star_border" }}
+          </mat-icon>
+        </div>
+  
+        <button
+          mat-raised-button
+          type="submit"
+          color="primary"
+          class="mb-3"
+          [disabled]="!feedbackForm.valid"
+        >
+          Submit
+        </button>
+      </form>
+    </mat-card>
+  </div>

@@ -1,3 +1,4 @@
+<app-adminheader></app-adminheader>
 <div class="outer">
     <div class="scanner-container">
       <button (click)="startScanner()" class="scan-button">Scan QR Code</button>
@@ -7,7 +8,7 @@
     <div id="reader" class="qr-reader"></div>
     <h1 *ngIf="isValidUser" class="valid-user-message">Thank You, Valid User!</h1>
 </div>
-  
+  <app-footer></app-footer>
 
   <!-- <p *ngIf="qrCodeData">QR Code Data: {{ qrCodeData }}</p> -->
   

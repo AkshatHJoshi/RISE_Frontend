@@ -113,3 +113,13 @@ button {
   right: 10%;
   cursor: pointer;
 }
+
+.fa-solid,
+.fa-eye .fa,
+.fa {
+  position: absolute;
+  top: 28%;
+  left: 90%;
+  right: 10%;
+  cursor: pointer;
+}

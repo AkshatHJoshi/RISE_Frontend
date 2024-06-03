@@ -17,6 +17,16 @@ import ValidateForm from 'src/app/Helpers/validateform';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  type: string = 'password';
+  isText: boolean = false;
+  eyeIcon: string = 'fa-eye-slash';
+
+  toggleVisibility(): void {
+    this.isText = !this.isText;
+    this.isText ? (this.eyeIcon = 'fa-eye') : (this.eyeIcon = 'fa-eye-slash');
+    this.isText ? (this.type = 'text') : (this.type = 'password');
+  }
+
   loginForm!: FormGroup;
   constructor(
     private fb: FormBuilder,
@@ -43,7 +53,7 @@ export class LoginComponent implements OnInit {
 
       if (email === 'admin@gmail.com' && password === 'AJ&10') {
         // Redirect to scanner page if admin credentials match
-        this.router.navigate(['/scanner']);
+        this.router.navigate(['/admin']);
         return; // Exit the function
       }
 

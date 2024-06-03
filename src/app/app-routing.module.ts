@@ -17,14 +17,19 @@ import { ViewBookingComponent } from './view-booking/view-booking.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { QrCodeScannerComponent } from './qr-code-scanner/qr-code-scanner.component';
+import { AdminhomeComponent } from './adminhome/adminhome.component';
+import { AdmincreditComponent } from './admincredit/admincredit.component';
 
 const routes: Routes = [
   // Redirect to 'login' by default
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminhomeComponent },
+  { path: 'credit', component: AdmincreditComponent },
+  
   { path: 'signup', component: SignupComponent },
   { path: 'forget', component: ForgotpasswordComponent },
-  { path: 'reset', component: ResetComponent, canActivate: [authGuard] },
+  { path: 'reset', component: ResetComponent, },
   { path: 'home', component: HomeComponent, canActivate: [authGuard] },
   { path: 'contact', component: ContactUsComponent, canActivate: [authGuard] },
   { path: 'aboutus', component: AboutUsComponent, canActivate: [authGuard] },

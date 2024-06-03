@@ -12,8 +12,7 @@ import { ResetPassword } from 'src/app/models/reset-password.model';
   templateUrl: './reset.component.html',
   styleUrls: ['./reset.component.css'],
 })
-export class ResetComponent implements OnInit {
-  resestPasswordForm!: FormGroup;
+export class ResetComponent implements OnInit {resestPasswordForm!: FormGroup;
   emailToRest!: string;
   emailToken!: string;
   resetPasswordObj = new ResetPassword();

@@ -47,9 +47,10 @@
                 id="password-field"
                 class="form-control"
                 type="password"
+                [type]="type"
                 value="Password"
               />
-
+              <i (click)="toggleVisibility()" class="fa {{ eyeIcon }}"></i>
               <small
                 *ngIf="
                   loginForm.controls['password'].dirty &&
@@ -101,3 +102,6 @@
     </div>
   </section>
 </body>
+
+
+
