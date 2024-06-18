@@ -1,8 +1,19 @@
+<section class="content">
+  <div class="imagecontainer">
+    <img
+    src="./../../assets/bg-sm.jpg"
+    alt="image"
+    class="image"
+  />
+  </div>
+
 <div class="back">
   <div class="container">
     <div class="row">
       <div class="col-md-6">
+        
         <div class="card">
+         
           <div class="text-center">
             <div class="logo-wrapper">
               <img
@@ -14,7 +25,7 @@
             </div>
             <h1>Register</h1>
           </div>
-
+          <div class="form">
           <form [formGroup]="signupForm" class="p-4">
             <mat-form-field class="mb-3" appearance="fill">
               <mat-label>First Name</mat-label>
@@ -33,7 +44,6 @@
                 * Firstname is Required
               </mat-error>
             </mat-form-field>
-
             <mat-form-field class="mb-3" appearance="fill">
               <mat-label>Last Name</mat-label>
               <input
@@ -51,7 +61,6 @@
                 * Lastname is Required
               </mat-error>
             </mat-form-field>
-
             <mat-form-field class="mb-3" appearance="fill">
               <mat-label>Email</mat-label>
               <input
@@ -63,21 +72,19 @@
                 id="exampleInputEmail1"
                 placeholder="Email"
               />
-              <!-- <mat-error
+             <mat-error
                 *ngIf="
                   signupForm.controls['email'].dirty &&
                   signupForm.controls['email'].hasError('required')
                 "
               >
                 * Email is Required
-              </mat-error> -->
+              </mat-error>
               <small
                 *ngIf="!isValidEmail && restPasswordEmail"
                 class="text-danger"
-                >*Email is invalid</small
-              >
+                >*Email is invalid</small>
             </mat-form-field>
-
             <mat-form-field class="mb-3" appearance="fill">
               <mat-label>Username</mat-label>
               <input
@@ -95,7 +102,6 @@
                 * Username is Required
               </mat-error>
             </mat-form-field>
-
             <mat-form-field id="pas" class="mb-3" appearance="fill">
               <mat-label>Password</mat-label>
               <input
@@ -116,7 +122,6 @@
                 * Password is Required
               </mat-error>
             </mat-form-field>
-
             <button
               mat-raised-button
               (click)="onSignup()"
@@ -126,7 +131,6 @@
             >
               Sign up
             </button>
-
             <div class="L_account">
               <p>
                 Already have an account?
@@ -136,6 +140,8 @@
           </form>
         </div>
       </div>
+      </div>
     </div>
   </div>
 </div>
+</section>

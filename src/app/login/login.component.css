@@ -2,11 +2,18 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+ 
+}
+.imagecontainer{
+  height: 100vh;
+  width: 70%;
+}
+.image{
+  height: 100vh;
+  width: 100%;
 }
 
-.login-content .login-content-lt {
-  height: 40vh;
-}
+
 .login-content .login-content-rt {
   flex: 0 0 35%;
   width: 35%;
@@ -15,9 +22,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #666b7a rgba(33, 37, 41, 0);
+  overflow: hidden;
+ 
 }
 .login-content .login-content-rt .login-box {
   min-width: 480px;
@@ -188,4 +194,37 @@
   left: 90%;
   right: 10%;
   cursor: pointer;
+}
+
+
+/* Container for loaders */
+.loader-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.8); /* Optional: semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column; /* Stack the loader and progress bar vertically */
+}
+
+/* Progress Bar Container */
+.progress-bar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: rgba(52, 152, 219, 0.1); /* Light blue background */
+}
+
+/* Progress Bar */
+.progress-bar {
+  height: 100%;
+  background: #3498db; /* Blue */
+  width: 0; /* Start at 0% */
+  transition: width 0.4s ease; /* Smooth transition */
 }

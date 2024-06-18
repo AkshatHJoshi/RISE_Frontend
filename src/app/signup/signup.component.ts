@@ -55,13 +55,15 @@ export class SignupComponent {
   }
 
   onSignup() {
-    if (this.signupForm.valid) {
+    console.log("wdfwddcd: " ,this.signupForm.value);
+    if (this.signupForm.valid)
+    {
       this.auth.signUp(this.signupForm.value).subscribe({
         next: (res) => {
           this.toast.success({
             detail: 'user is registered!',
             summary: res.message,
-            duration: 3000,
+            duration: 5000,
           });
           this.signupForm.reset();
           this.router.navigate(['login']);
@@ -74,7 +76,8 @@ export class SignupComponent {
           });
         },
       });
-    } else {
+    } 
+    else {
       ValidateForm.validateAllFormFields(this.signupForm);
       alert('Form is invalid');
     }

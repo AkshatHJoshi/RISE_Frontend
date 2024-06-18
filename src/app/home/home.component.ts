@@ -130,7 +130,7 @@ export class HomeComponent implements OnInit {
 
   isWeekend(date: Date): boolean {
     const day = date.getDay();
-    return day === 6 || day === 0;
+    return  day === 0;
   }
 
   isCanceled(date: Date): boolean {
@@ -293,7 +293,7 @@ export class HomeComponent implements OnInit {
     console.log('isbooked', this.todays_booking);
     const currentHour = currentDate.getHours();
 
-    if (isToday && (   (currentHour >= 9 && currentHour < 16) || (currentHour >= 20 && currentHour < 22) )  && this.todays_booking) {
+    if (isToday && (   (currentHour >= 9 && currentHour < 24) || (currentHour >= 20 && currentHour < 22) )  && this.todays_booking) {
       console.log("currentttttttttHour", isToday);
       this.showQrCodeButton = true;
     } else {

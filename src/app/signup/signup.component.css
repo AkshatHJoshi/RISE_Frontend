@@ -1,70 +1,75 @@
-.back {
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  
+}
+
+.imagecontainer{
+  width: 65%;
+}
+.image{
+  height: 100vh;
   width: 100%;
-  height: 100%;
-  background-image: url("./../../assets/psychedelic-paper-shapes-with-copy-space.jpg");
+ 
+}
+
+.back {
+  display: flex;
+  height: 100vh;
+  background-image: url("../../assets/pol.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  justify-content: center;
+  align-items: center;
+  background-color: #7e6060;
+  overflow: hidden;
 }
 
 .card {
-  top: 50%;
-  left: 50%;
-  width: 450px;
-  height: 100%;
-  padding: 40px;
-  position: absolute;
-  border: none;
-  background-color: #f3d9d9;
-  transform: translate(-50%, -50%);
-  z-index: 999;
-  box-shadow: rgb(0, 0, 3);
-  /* display: flex; */
-  align-items: center;
-  justify-content: center;
-  /* overflow: auto; */
-  box-sizing: border-box;
-}
 
-.L_account {
-  margin: 20px;
-}
-
-.back {
-  background-color: #f0f0f0;
+  width: 550px;
   height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 40px;
+  border: none;
+
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .container {
-  max-width: 500px;
+  max-width: 100%;
 }
 
 .text-center {
   text-align: center;
   padding: 1px;
+ 
 }
 
-.logo-wrapper {
-  top: 10px;
-  margin-bottom: 5px;
+.logo-wrapper{
+  margin-top: -15px;
+ 
 }
+
 
 .logo-wrapper img {
-  width: 80px;
+  width: 50px;
+  margin-top: -20px;
   height: auto;
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 34px;
+  font-weight: 700;
   margin-bottom: 5px;
 }
 
-.mat-form-field {
-  width: 100%;
-}
 
 .mat-error {
   font-size: 14px;
@@ -73,11 +78,11 @@ h1 {
 
 button {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .L_account {
-  margin-top: 20px;
+
   text-align: center;
 }
 
@@ -91,17 +96,15 @@ button {
 }
 
 .mb-3 {
-  margin-right: 10px;
-  display: flex;
+  margin-bottom: 16px;
+  width: 100%;
 }
 
-/* #pas {
-  position: relative;
-  display: flex;
-} */
-
 .Meal {
-  font-size: 18px; /* Adjust font size as needed */
+  color: #e23e3f;
+  font-size: 34px;
+  font-weight: 700;
+ 
 }
 
 .fa-solid,
@@ -110,16 +113,5 @@ button {
   position: absolute;
   top: 40%;
   left: 95%;
-  right: 10%;
-  cursor: pointer;
-}
-
-.fa-solid,
-.fa-eye .fa,
-.fa {
-  position: absolute;
-  top: 28%;
-  left: 90%;
-  right: 10%;
   cursor: pointer;
 }

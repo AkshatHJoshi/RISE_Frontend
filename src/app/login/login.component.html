@@ -1,11 +1,19 @@
 <body class="mt-0">
   <section class="login-content">
-    <div>
-      <img src="../../assets/bg-sm.jpg" alt="Rishabh Software" />
+    <div class="imagecontainer">
+      <img class="image" src="../../assets/bg-sm.jpg" alt="Rishabh Software" />
     </div>
-    <div class="login-content-lt"></div>
+  
     <div class="login-content-rt">
       <div class="login-box">
+        <!-- Loader Element -->
+        <div class="loader-container" *ngIf="isLoading">
+          <div class="loader"></div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" [style.width.%]="progress"></div>
+          </div>
+        </div>
+
         <form [formGroup]="loginForm" class="login-form" action="#">
           <div class="logo-wrapper">
             <img src="../../assets/logo.svg" alt="Rishabh Software" />
@@ -32,7 +40,7 @@
                 "
                 class="text-danger">
                 *Email is Required
-                </small>
+              </small>
               <div class="icon-after icon-green">
                 <i class="icon-check"></i>
               </div>
@@ -70,9 +78,7 @@
             <div class="form-group mb-0">
               <div class="utility">
                 <p>
-                  <a href="#" class="form-link" routerLink="/forget"
-                    >Forgot Password?</a
-                  >
+                  <a href="#" class="form-link" routerLink="/forget">Forgot Password?</a>
                 </p>
               </div>
             </div>
@@ -84,15 +90,12 @@
             </button>
           </div>
 
-          <div
-            id="sighn"
-            class="d-flex align-items-center justify-content-between"
-          >
+          <div id="sighn" class="d-flex align-items-center justify-content-between">
             <div class="form-group mb-0">
               <div class="utility">
                 <p>
                   Dont have an Account?
-                  <a href="#" class="form-link" routerLink="/signup">Sigh Up</a>
+                  <a href="#" class="form-link" routerLink="/signup">Sign Up</a>
                 </p>
               </div>
             </div>
@@ -102,6 +105,3 @@
     </div>
   </section>
 </body>
-
-
-
