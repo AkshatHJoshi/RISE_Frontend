@@ -30,7 +30,7 @@ export class QuickBookingComponent {
 
     this.today = new Date();
     this.tomorrow = new Date(this.today);
-    this.tomorrow.setDate(this.today.getDate() + 2);
+    this.tomorrow.setDate(this.today.getDate() + 1);
     this.tomorrowdate = this.tomorrow.toISOString().split('T')[0];
 
     if (this.tomorrow.getDay() === 6) {

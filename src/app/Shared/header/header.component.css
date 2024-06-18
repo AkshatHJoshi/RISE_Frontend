@@ -138,3 +138,7 @@ a:hover {
   line-height: 1;
   text-align: center;
 }
+
+.btn-secondary{
+  margin-right: 40px;
+}

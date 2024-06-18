@@ -6,6 +6,7 @@ import { UserStoreService } from 'src/app/Services/user-store.service';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { NotificationComponent } from 'src/app/notification/notification.component';
 import { NotificationService } from 'src/app/Services/notification.service';
+import { LogoutComponent } from 'src/app/logout/logout.component';
 
 @Component({
   selector: 'app-header',
@@ -58,6 +59,11 @@ export class HeaderComponent implements OnInit {
 
   openSidebar() {
     this.dialog.open(SidebarComponent);
+  }
+
+  openLogoutDialog() {
+    this.dialog.open(LogoutComponent);
+    
   }
 
   openNotification() {
